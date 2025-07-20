@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant darkCustom (&:is(.dark *));
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -111,17 +111,17 @@
 }
 
 .darkCustom {
-  --background: oklch(0.147 0.02 40); /* --color-dark (#090402) */
+  --background: oklch(0.1155 0.0154 52.6); /* --color-dark (#090402) */
   --foreground: oklch(1 0 0); /* --color-white */
-  --card: oklch(0.21 0.015 40); /* --color-sectionDark (#171210) */
-  --card-foreground: oklch(0.822 0.002 100); /* --color-softWhite */
-  --primary: oklch(0.562 0.257 35); /* --color-primary (#c34813) */
+  --card: oklch(0.1876 0.0092 43.02); /* --color-sectionDark (#171210) */
+  --card-foreground: oklch(0.8141 0 0); /* --color-softWhite */
+  --primary: oklch(0.5639 0.1681 39.86); /* --color-primary (#c34813) */
   --primary-foreground: oklch(1 0 0); /* --color-white */
-  --primary-hover: oklch(0.645 0.273 36); /* --color-primaryHover (#ff550c) */
-  --positive: oklch(0.705 0.205 145); /* --color-positive (#21c313) */
-  --negative: oklch(0.57 0.255 27); /* --color-negative (#c31313) */
-  --muted: oklch(0.913 0.003 100); /* --color-btnGray (#e5e5e5) */
-  --muted-foreground: oklch(0.822 0.002 100); /* --color-softWhite */
+  --primary-hover: oklch(0.6761 0.2167 38.16); /* --color-primaryHover (#ff550c) */
+  --positive: oklch(0.7111 0.234 142.1); /* --color-positive (#21c313) */
+  --negative: oklch(0.5195 0.2042 28.32); /* --color-negative (#c31313) */
+  --muted: oklch(0.9219 0 0); /* --color-btnGray (#e5e5e5) */
+  --muted-foreground: oklch(0.8141 0 0); /* --color-softWhite */
   --border: oklch(0.3 0.01 40); /* dark card tone */
   --input: oklch(0.21 0.015 40); /* match card bg */
   --ring: oklch(0.6 0.02 40); /* subtle border/ring tone */
