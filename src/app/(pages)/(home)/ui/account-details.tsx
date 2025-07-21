@@ -1,17 +1,29 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import { useAccountDetails } from "../hooks/use-account-details"
+import { ConnectedAccount } from "./connected-account"
+import { NotConnectedAccount } from "./not-connected-account"
 
 export function AccountDetails() {
-  return (
-    <div className="w-full md:w-[40%] flex flex-col">
-      <p className="max-md:flex text-lg flex-col text-left">
-        Not connected yet. To access your dashboard and interact with the smart
-        contract, please connect your Web3 wallet.
-      </p>
-      <Button className="mt-auto" onClick={() => {}}>
-        Connect Wallet
-      </Button>
-    </div>
-  )
+  const {
+    userRole,
+    totalTransactions,
+    pendingApprovals,
+    formattedAddress,
+    activeDeals,
+  } = useAccountDetails()
+
+  if (true) {
+    return (
+      <ConnectedAccount
+        walletAddress={formattedAddress}
+        userRole={userRole}
+        totalTransactions={totalTransactions}
+        pendingApprovals={pendingApprovals}
+        activeDeals={activeDeals}
+      />
+    )
+  }
+
+  return <NotConnectedAccount />
 }

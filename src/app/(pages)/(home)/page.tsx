@@ -1,4 +1,4 @@
-import { AccountDetails, Card, Container, HeroMessage } from "./ui"
+import { Card, Container, HeroMessage, AccountDetails } from "./ui"
 
 export default function Home() {
   return (
