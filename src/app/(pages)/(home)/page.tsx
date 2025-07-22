@@ -1,12 +1,16 @@
-import { Card, Container, HeroMessage, AccountDetails } from "./ui"
+import { PageCard } from "@/app/atoms"
+import { Container, HeroMessage, AccountDetails } from "./ui"
+import { ActivityEventTab } from "@/app/blocks"
+import { ActivityEventCard } from "./ui/activity-event-card"
 
 export default function Home() {
   return (
     <Container>
-      <Card>
+      <PageCard>
         <HeroMessage />
         <AccountDetails />
-      </Card>
+      </PageCard>
+      <ActivityEventCard />
     </Container>
   )
 }
