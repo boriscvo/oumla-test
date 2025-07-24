@@ -1,10 +1,13 @@
 export type TransactionStatus =  "active" | "pending" | "completed" | "rejected"
+export type TransactionStatusNonPending = Exclude<TransactionStatus, "pending"> | "all"
 
 export type Transaction = {
-    id: number
-    to: `0x${string}`
-    amount: bigint
-    status: TransactionStatus
-    createdAt: number
-    createdBy: `0x${string}`
+  id: number
+  from: string
+  to: string
+  amount: bigint
+  description: string
+  status: TransactionStatus
+  createdAt: number
+  approvalId: number
 }

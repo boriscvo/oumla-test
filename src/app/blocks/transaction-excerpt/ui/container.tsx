@@ -3,9 +3,5 @@ type Props = {
 }
 
 export function Container({ children }: Props) {
-  return (
-    <span className="py-2 border-1 border-secondary rounded-md">
-      {children}
-    </span>
-  )
+  return <span className="flex py-3">{children}</span>
 }

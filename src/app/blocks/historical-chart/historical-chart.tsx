@@ -1,3 +1,4 @@
+"use client"
 import dynamic from "next/dynamic"
 import { ChartProps } from "./types"
 import { Container } from "./ui"

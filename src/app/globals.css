@@ -39,6 +39,10 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
 }
 
 :root {
@@ -120,6 +124,8 @@
   --primary-hover: oklch(0.6761 0.2167 38.16); /* --color-primaryHover (#ff550c) */
   --positive: oklch(0.7111 0.234 142.1); /* --color-positive (#21c313) */
   --negative: oklch(0.5195 0.2042 28.32); /* --color-negative (#c31313) */
+  --warning: oklch(0.6 0.2 50); /* --color-warning (#f5c518) */
+  --info: oklch(0.75 0.06 240); /* --color-info (#78aaff) */
   --muted: oklch(0.9219 0 0); /* --color-btnGray (#e5e5e5) */
   --muted-foreground: oklch(0.8141 0 0); /* --color-softWhite */
   --border: oklch(0.3 0.01 40); /* dark card tone */

@@ -8,7 +8,5 @@ export function useXaxis(points?: ChartPoint[]) {
   const time2 = String(points[Math.floor(points.length / 2)]?.x) || ""
   const time3 = String(points[0]?.x) || ""
 
-  console.log(time1)
-
   return { time1, time2, time3}
 }

@@ -1,15 +1,20 @@
 import { Transaction } from "@/types/api/transaction"
 
-type Props = Pick<Transaction, "to" | "status" | "createdBy">
+type Props = Pick<Transaction, "to" | "from"> & { isSelf: boolean }
 
-export function Basics({ to, status, createdBy }: Props) {
-  return (
-    <div>
-      <div></div>
-      <div>
-        <span className="text-sm text-gray-500">{}</span>
-        <span className="text-sm font-semibold"></span>
+export function Basics({ to, from, isSelf }: Props) {
+  if (isSelf) {
+    return (
+      <div className="flex text-lg">
+        <span className="">From:</span>
+        <span className="ml-2">{from}</span>
       </div>
+    )
+  }
+  return (
+    <div className="flex text-lg">
+      <span className="">To:</span>
+      <span className="ml-2">{to}</span>
     </div>
   )
 }
