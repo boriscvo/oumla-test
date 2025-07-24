@@ -1,15 +1,22 @@
 "use client"
-
 import { Button } from "@/components/ui/button"
 import { Link } from "lucide-react"
 
+const Container = ({ children }: { children: React.ReactNode }) => {
+  return <div className="w-full md:w-[40%] flex flex-col">{children}</div>
+}
+
+const Description = ({ children }: { children: React.ReactNode }) => {
+  return <p className="max-md:flex text-lg flex-col text-left">{children}</p>
+}
+
 export function NotConnectedAccount() {
   return (
-    <div className="w-full md:w-[40%] flex flex-col">
-      <p className="max-md:flex text-lg flex-col text-left">
+    <Container>
+      <Description>
         Not connected yet. To access your dashboard and interact with the smart
         contract, please connect your Web3 wallet.
-      </p>
+      </Description>
       <Button
         size="lg"
         className="mt-auto text-base py-4 tracking-wide cursor-pointer"
@@ -17,6 +24,6 @@ export function NotConnectedAccount() {
       >
         Connect Wallet <Link className="ml-2" />
       </Button>
-    </div>
+    </Container>
   )
 }
