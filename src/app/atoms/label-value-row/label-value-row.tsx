@@ -1,9 +1,9 @@
 import { LabelValueRowProps } from "./types"
 import { Container, Label, Value } from "./ui"
 
-export function LabelValueRow({ label, value }: LabelValueRowProps) {
+export function LabelValueRow({ isColumn, label, value }: LabelValueRowProps) {
   return (
-    <Container>
+    <Container isColumn={isColumn}>
       <Label label={label} />
       <Value value={value} />
     </Container>

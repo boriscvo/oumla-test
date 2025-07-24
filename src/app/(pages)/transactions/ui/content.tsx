@@ -3,6 +3,7 @@
 import { useTransactions } from "../hooks/use-transactions"
 import { FilterHeader } from "./filter-header"
 import { Group } from "./group"
+import { NewTransaction, TransactionDetails } from "./modals"
 
 export function Content() {
   const {
@@ -19,12 +20,13 @@ export function Content() {
     handleSelectFilterNonPending,
     handleInputFilterPendingTransactions,
     handleInputFilterNonPendingTransactions,
-    handleActiveTransaction,
+    handleActiveTransactionOpen,
+    handleActiveTransactionClose,
     handleNewTransactionOpen,
     handleNewTransactionClose,
   } = useTransactions()
   return (
-    <div>
+    <>
       <div className="mb-10 border-b border-muted pb-10">
         <FilterHeader
           hasSelect={false}
@@ -35,7 +37,7 @@ export function Content() {
         />
         <Group
           transactions={pendingTransactions}
-          handleTransactionClick={handleActiveTransaction}
+          handleTransactionClick={handleActiveTransactionOpen}
         />
       </div>
       <div className="mb-4">
@@ -51,9 +53,17 @@ export function Content() {
         />
         <Group
           transactions={nonPendingTransactions}
-          handleTransactionClick={handleActiveTransaction}
+          handleTransactionClick={handleActiveTransactionOpen}
         />
       </div>
-    </div>
+      <TransactionDetails
+        transaction={activeTransaction}
+        handleClose={handleActiveTransactionClose}
+      />
+      <NewTransaction
+        isOpen={isNewTransactionOpen}
+        handleClose={handleNewTransactionClose}
+      />
+    </>
   )
 }

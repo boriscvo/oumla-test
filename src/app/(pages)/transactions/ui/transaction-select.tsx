@@ -2,7 +2,6 @@ import { TransactionStatusNonPending } from "@/types/api/transaction"
 import {
   Select,
   SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectItem,
 } from "@/components/ui/select"

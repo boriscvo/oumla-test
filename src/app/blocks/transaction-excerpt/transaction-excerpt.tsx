@@ -13,6 +13,7 @@ import {
 } from "./ui"
 import { Button } from "@/components/ui/button"
 import useGlobalStore from "@/app/store/use-global-store"
+import { Link } from "lucide-react"
 
 type Props = Transaction & {
   handleTransactionClick: (id: number) => void
@@ -37,6 +38,15 @@ export function TransactionExcerpt({
           <DateStamp date={createdAt} />
           <Stop />
           <TransactionLabel status={status} />
+          <Stop />
+          <Button
+            className="px-0 underline cursor-pointer"
+            variant="link"
+            onClick={() => handleTransactionClick(id)}
+          >
+            View Details
+            <Link className="h-4 w-4 -mt-[0.5]" />
+          </Button>
         </SecondaryProps>
       </InfoSection>
       <Button
