@@ -12,7 +12,7 @@ import {
   TransactionLabel,
 } from "./ui"
 import { Button } from "@/components/ui/button"
-import useGlobalStore from "@/app/store/use-global-store"
+import useGlobalStore from "@/store/use-global-store"
 import { Link } from "lucide-react"
 
 type Props = Transaction & {

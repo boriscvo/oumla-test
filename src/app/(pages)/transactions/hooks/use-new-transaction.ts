@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { z } from "zod"
-import useGlobalStore from "@/app/store/use-global-store"
+import useGlobalStore from "@/store/use-global-store"
 
 export function useNewTransaction() {
   const schema = z.object({
