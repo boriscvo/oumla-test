@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { Link } from "lucide-react"
 
 export function NotConnectedAccount() {
   return (
@@ -9,8 +10,12 @@ export function NotConnectedAccount() {
         Not connected yet. To access your dashboard and interact with the smart
         contract, please connect your Web3 wallet.
       </p>
-      <Button className="mt-auto" onClick={() => {}}>
-        Connect Wallet
+      <Button
+        size="lg"
+        className="mt-auto text-base py-4 tracking-wide cursor-pointer"
+        onClick={() => {}}
+      >
+        Connect Wallet <Link className="ml-2" />
       </Button>
     </div>
   )

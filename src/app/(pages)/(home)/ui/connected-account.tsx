@@ -6,7 +6,6 @@ type Props = {
   userRole?: UserRoles
   totalTransactions?: number
   pendingApprovals?: number
-  activeDeals?: number
 }
 
 const Container = ({ children }: { children: React.ReactNode }) => {
@@ -18,7 +17,6 @@ export function ConnectedAccount({
   userRole,
   totalTransactions,
   pendingApprovals,
-  activeDeals,
 }: Props) {
   return (
     <Container>

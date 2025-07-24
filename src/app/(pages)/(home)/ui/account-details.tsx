@@ -5,22 +5,16 @@ import { ConnectedAccount } from "./connected-account"
 import { NotConnectedAccount } from "./not-connected-account"
 
 export function AccountDetails() {
-  const {
-    userRole,
-    totalTransactions,
-    pendingApprovals,
-    formattedAddress,
-    activeDeals,
-  } = useAccountDetails()
+  const { userRole, totalTransactions, pendingApprovals, formattedAddress } =
+    useAccountDetails()
 
-  if (true) {
+  if (false) {
     return (
       <ConnectedAccount
         walletAddress={formattedAddress}
         userRole={userRole}
         totalTransactions={totalTransactions}
         pendingApprovals={pendingApprovals}
-        activeDeals={activeDeals}
       />
     )
   }
