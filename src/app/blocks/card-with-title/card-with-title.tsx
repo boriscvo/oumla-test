@@ -4,7 +4,7 @@ import { Container, Content, Title } from "./ui"
 
 export function CardWithTitle({ title, children }: CardWithTitleProps) {
   return (
-    <PageCard>
+    <PageCard isAnimated>
       <Container>
         <Title>{title}</Title>
         <Content>{children}</Content>

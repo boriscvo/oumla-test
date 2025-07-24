@@ -1,19 +1,27 @@
 "use client"
-
 import { useAccountDetails } from "../hooks/use-account-details"
 import { ConnectedAccount } from "./connected-account"
 import { AccountDetailsLoading } from "./loading/account-details-loading"
 import { NotConnectedAccount } from "./not-connected-account"
 
 export function AccountDetails() {
-  const { userRole, totalTransactions, pendingApprovals, formattedAddress } =
-    useAccountDetails()
+  const {
+    userAddress,
+    userRole,
+    totalTransactions,
+    pendingApprovals,
+    formattedAddress,
+    isLoading,
+    isError,
+    isPageMounted,
+    handleConnect,
+  } = useAccountDetails()
 
-  if (true) {
+  if (!isPageMounted || isLoading || isError) {
     return <AccountDetailsLoading />
   }
 
-  if (false) {
+  if (userAddress) {
     return (
       <ConnectedAccount
         walletAddress={formattedAddress}
@@ -24,5 +32,5 @@ export function AccountDetails() {
     )
   }
 
-  return <NotConnectedAccount />
+  return <NotConnectedAccount handleConnect={handleConnect} />
 }

@@ -1,10 +1,13 @@
 "use client"
-
 import { useActivityEventCard } from "../hooks/use-activity-event-card"
 import { ActivityEventTab, CardWithTitle } from "@/app/blocks"
 
 export function ActivityEventCard() {
-  const { recentActivity } = useActivityEventCard()
+  const { recentActivity, userAddress } = useActivityEventCard()
+
+  if (!userAddress) {
+    return null
+  }
 
   return (
     <CardWithTitle title="Recent Activity">
