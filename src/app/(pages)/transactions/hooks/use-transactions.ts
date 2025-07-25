@@ -1,12 +1,15 @@
-import {
-  Transaction,
-  TransactionStatusNonPending,
-} from "@/types/api/transaction"
+import { Transaction } from "@/types/api/transaction"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { FilterStateVariant } from "../types"
-import { mockedTransactions } from "../mocks/mocked-transactions"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllTransactions } from "@/http/contract/fetch-all-transactions"
+import useGlobalStore from "@/store/use-global-store"
+import { ActivityStatus } from "@/types/api/recent-activity"
+import { TransactionStatusNonPending } from "@/types/common"
 
 export function useTransactions() {
+  const userAddress = useGlobalStore((state) => state.userAddress)
+
   const filterOptions = [
     "all",
     "active",
@@ -54,9 +57,17 @@ export function useTransactions() {
     setIsNewTransactionOpen(false)
   }
 
+  const { data: allTransactionsData, isLoading } = useQuery({
+    queryKey: ["transactions", userAddress],
+    queryFn: () => fetchAllTransactions(),
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+  })
+
   const handleSetAllPending = (transactions: Transaction[]) => {
     const pending = transactions.filter(
-      (transaction) => transaction.status === "pending"
+      (transaction) => transaction.status === ActivityStatus.Pending
     )
     setFullPendingTransactions(pending)
     setPendingTransactions(pending)
@@ -64,9 +75,9 @@ export function useTransactions() {
 
   const handleSetAllNonPending = (transactions: Transaction[]) => {
     const nonPending = transactions.filter(
-      (transaction) => transaction.status !== "pending"
+      (transaction) => transaction.status !== ActivityStatus.Pending
     )
-    setFullNonPendingTransactions(nonPending)
+    setFullNonPendingTransactions(nonPending.slice(-10))
     setNonPendingTransactions(nonPending.slice(-20))
   }
 
@@ -83,7 +94,7 @@ export function useTransactions() {
           setFilterStateNonPending("active")
           setNonPendingTransactions(
             fullNonPendingTransactions.filter(
-              (transaction) => transaction.status === "active"
+              (transaction) => transaction.status === ActivityStatus.Active
             )
           )
           return
@@ -91,7 +102,7 @@ export function useTransactions() {
           setFilterStateNonPending("completed")
           setNonPendingTransactions(
             fullNonPendingTransactions.filter(
-              (transaction) => transaction.status === "completed"
+              (transaction) => transaction.status === ActivityStatus.Completed
             )
           )
           return
@@ -99,7 +110,7 @@ export function useTransactions() {
           setFilterStateNonPending("rejected")
           setNonPendingTransactions(
             fullNonPendingTransactions.filter(
-              (transaction) => transaction.status === "rejected"
+              (transaction) => transaction.status === ActivityStatus.Rejected
             )
           )
           return
@@ -153,11 +164,15 @@ export function useTransactions() {
   }, [filterStateNonPending, inputStateNonPending])
 
   useEffect(() => {
-    handleSetAllPending(mockedTransactions as Transaction[])
-    handleSetAllNonPending(mockedTransactions as Transaction[])
-  }, [])
+    if (allTransactionsData) {
+      const reversedTransactions = allTransactionsData.reverse()
+      handleSetAllPending(reversedTransactions)
+      handleSetAllNonPending(reversedTransactions)
+    }
+  }, [allTransactionsData])
 
   return {
+    isLoading,
     filterOptions,
     pendingTransactions,
     nonPendingTransactions,

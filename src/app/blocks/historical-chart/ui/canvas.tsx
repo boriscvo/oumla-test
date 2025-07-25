@@ -1,5 +1,5 @@
 import { ChartPoint } from "@/types/common"
-import { Stage, Layer, Shape, Line } from "react-konva"
+import { Stage, Layer, Line } from "react-konva"
 import { useCanvas } from "../hooks/use-canvas"
 import { Xaxis } from "./x-axis"
 import { Yaxis } from "./y-axis"
@@ -11,7 +11,7 @@ type Props = {
 }
 
 export default function Canvas({ width, height, data }: Props) {
-  const { fullPath, normalizedPoints } = useCanvas({ width, height, data })
+  const { fullPath } = useCanvas({ width, height, data })
   return (
     <div className="relative">
       <Yaxis points={data} />

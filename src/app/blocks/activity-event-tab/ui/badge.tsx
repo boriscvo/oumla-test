@@ -1,4 +1,5 @@
 import { ActivityEvent } from "@/types/api"
+import { ActivityStatus } from "@/types/api/recent-activity"
 import { Clock, Loader, CheckCircle2, XCircle } from "lucide-react"
 
 function BadgeResolved({ type }: Pick<ActivityEvent, "type">) {
@@ -8,13 +9,13 @@ function BadgeResolved({ type }: Pick<ActivityEvent, "type">) {
   }
 
   switch (type) {
-    case 0:
+    case ActivityStatus.Pending:
       return <Clock {...iconProps} />
-    case 1:
+    case ActivityStatus.Active:
       return <Loader {...iconProps} />
-    case 2:
+    case ActivityStatus.Completed:
       return <CheckCircle2 {...iconProps} />
-    case 3:
+    case ActivityStatus.Rejected:
     default:
       return <XCircle {...iconProps} />
   }

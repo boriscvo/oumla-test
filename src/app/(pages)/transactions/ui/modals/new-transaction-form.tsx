@@ -28,11 +28,7 @@ export function NewTransactionForm({
 }: Props) {
   return (
     <>
-      <LabelValueRow
-        isColumn
-        label="From"
-        value={<Input placeholder={userAddress || ""} readOnly />}
-      />
+      <LabelValueRow isColumn label="From" value={userAddress} />
       <LabelValueRow
         isColumn
         label="To"

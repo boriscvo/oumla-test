@@ -14,7 +14,7 @@ const FilterStateLabel = React.memo(({ filterState }: Props) => {
     case "active-and-text":
       return <span>Active Transactions, filtered by user input</span>
     case "pending":
-      return <span>Pending Transactions, 5 most recent</span>
+      return <span>Pending Transactions, 10 most recent</span>
     case "pending-and-text":
       return <span>Pending Transactions, filtered by user input</span>
     case "completed":

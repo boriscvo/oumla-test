@@ -24,18 +24,19 @@ export function TransactionExcerpt({
   to,
   amount,
   status,
-  createdAt,
+  timestamp,
   from,
   handleTransactionClick,
 }: Props) {
   const userAddress = useGlobalStore((state) => state.userAddress)
+
   return (
     <Container>
       <Badge isSelf={userAddress === from} />
       <InfoSection>
         <FromOrTo to={to} from={from} isSelf={userAddress === from} />
         <SecondaryProps>
-          <DateStamp date={createdAt} />
+          <DateStamp date={timestamp} />
           <Stop />
           <TransactionLabel status={status} />
           <Stop />
@@ -49,12 +50,6 @@ export function TransactionExcerpt({
           </Button>
         </SecondaryProps>
       </InfoSection>
-      <Button
-        variant="link"
-        className="absolute top-2 right-2"
-        onClick={() => handleTransactionClick(id)}
-        value="View Details"
-      />
       <Separator />
       <Amount amount={String(amount)} />
     </Container>

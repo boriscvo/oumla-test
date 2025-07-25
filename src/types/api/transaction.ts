@@ -1,13 +1,11 @@
-export type TransactionStatus =  "active" | "pending" | "completed" | "rejected"
-export type TransactionStatusNonPending = Exclude<TransactionStatus, "pending"> | "all"
+import { ActivityStatus } from "./recent-activity"
 
 export type Transaction = {
   id: number
   from: string
   to: string
-  amount: bigint
+  amount: string
   description: string
-  status: TransactionStatus
-  createdAt: number
-  approvalId: number
+  timestamp: number
+  status: ActivityStatus
 }

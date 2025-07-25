@@ -1,3 +1,5 @@
 export { ActivityEventTab } from "./activity-event-tab/activity-event-tab"
 export { CardWithTitle } from "./card-with-title/card-with-title"
 export { HistoricalChart } from "./historical-chart/historical-chart"
+export { TransactionExcerpt } from "./transaction-excerpt/transaction-excerpt"
+export { TransactionExcerptLoading } from "./transaction-excerpt/transaction-excerpt-loading"

@@ -36,7 +36,9 @@ export function NewTransaction({ isOpen, handleClose }: Props) {
     <Dialog open={isOpen} onOpenChange={handleDialogClose}>
       <DialogContent aria-describedby={undefined}>
         <DialogHeader>
-          {!isSubmitted && <DialogTitle>Create New Transaction</DialogTitle>}
+          {!isSubmitted && (
+            <DialogTitle className="mb-2">Create New Transaction</DialogTitle>
+          )}
         </DialogHeader>
         {isSubmitted ? (
           <TransactionOutcome

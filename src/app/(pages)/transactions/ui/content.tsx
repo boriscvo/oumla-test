@@ -8,6 +8,7 @@ import { NewTransaction, TransactionDetails } from "./modals"
 export function Content() {
   useWalletConnector()
   const {
+    isLoading,
     filterOptions,
     isNewTransactionOpen,
     activeTransaction,
@@ -37,6 +38,7 @@ export function Content() {
           handleNewTransactionOpen={handleNewTransactionOpen}
         />
         <Group
+          isLoading={isLoading}
           transactions={pendingTransactions}
           handleTransactionClick={handleActiveTransactionOpen}
         />
@@ -53,6 +55,7 @@ export function Content() {
           handleSelectChange={handleSelectFilterNonPending}
         />
         <Group
+          isLoading={isLoading}
           transactions={nonPendingTransactions}
           handleTransactionClick={handleActiveTransactionOpen}
         />

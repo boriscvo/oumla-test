@@ -39,7 +39,15 @@ export function ConnectedAccount() {
           isPendingApprovalsLoading ? (
             <LoadingSkeleton className="w-[2rem]" />
           ) : (
-            pendingApprovals
+            <span
+              className={
+                pendingApprovals && pendingApprovals > 0
+                  ? "text-primary"
+                  : "text-white"
+              }
+            >
+              {pendingApprovals}
+            </span>
           )
         }
       />

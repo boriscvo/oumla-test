@@ -10,7 +10,7 @@ export function HistoricalChartCard() {
   }
 
   return (
-    <CardWithTitle title="Historical Chart">
+    <CardWithTitle title="Historical Chart of Transactions">
       <HistoricalChart points={historicalPoints} />
     </CardWithTitle>
   )

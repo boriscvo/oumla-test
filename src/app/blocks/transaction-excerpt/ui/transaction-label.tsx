@@ -1,34 +1,34 @@
-import { TransactionStatus } from "@/types/api/transaction"
+import { ActivityStatus } from "@/types/api/recent-activity"
 import { CheckCircle, XCircle, Clock, AlertCircle } from "lucide-react"
 
 type Props = {
-  status: TransactionStatus
+  status: ActivityStatus
 }
 
 export function TransactionLabel({ status }: Props) {
   switch (status) {
-    case "completed":
+    case ActivityStatus.Completed:
       return (
         <div className="flex items-center text-positive">
           <CheckCircle className="w-4 h-4 mr-2 mt-[1px]" />
           <span>Completed</span>
         </div>
       )
-    case "rejected":
+    case ActivityStatus.Rejected:
       return (
         <div className="flex items-center text-negative">
           <XCircle className="w-4 h-4 mr-2 mt-[1px]" />
           <span>Rejected</span>
         </div>
       )
-    case "pending":
+    case ActivityStatus.Pending:
       return (
         <div className="flex items-center text-warning">
           <Clock className="w-4 h-4 mr-2 mt-[1px]" />
           <span>Pending</span>
         </div>
       )
-    case "active":
+    case ActivityStatus.Active:
     default:
       return (
         <div className="flex items-center text-info font-medium">

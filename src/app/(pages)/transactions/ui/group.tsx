@@ -1,16 +1,26 @@
-import { TransactionExcerpt } from "@/app/blocks/transaction-excerpt/transaction-excerpt"
+import { TransactionExcerpt } from "@/app/blocks"
 import { Transaction } from "@/types/api/transaction"
+import { Loading } from "./loading"
 
 type Props = {
+  isLoading?: boolean
   transactions: Transaction[]
   handleTransactionClick: (id: number) => void
 }
 
-function GroupList({ transactions, handleTransactionClick }: Props) {
+function GroupList({ isLoading, transactions, handleTransactionClick }: Props) {
+  if (isLoading) {
+    return <Loading />
+  }
+
+  if (transactions.length === 0) {
+    return <div className="text-xl text-muted">No transactions found.</div>
+  }
+
   return transactions.map((transaction) => (
     <TransactionExcerpt
       {...transaction}
-      key={transaction.id + transaction.createdAt}
+      key={transaction.id + transaction.timestamp}
       handleTransactionClick={handleTransactionClick}
     />
   ))

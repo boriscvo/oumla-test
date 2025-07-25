@@ -6,6 +6,7 @@ import { createNewTransaction } from "@/http/contract/create-new-transaction"
 import { TransactionPlacedOutcome } from "../types"
 
 export function useNewTransaction(handleClose: () => void) {
+  const userAddress = useGlobalStore((state) => state.userAddress)
   const [outcome, setOutcome] = useState<TransactionPlacedOutcome | null>(null)
   const schema = z.object({
     to: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid Ethereum address"),
@@ -17,8 +18,6 @@ export function useNewTransaction(handleClose: () => void) {
   })
 
   type FormData = z.infer<typeof schema>
-
-  const userAddress = useGlobalStore((state) => state.userAddress)
 
   const [to, setTo] = useState("")
   const [amount, setAmount] = useState("")

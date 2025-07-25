@@ -1,10 +1,10 @@
-import { TransactionStatusNonPending } from "@/types/api/transaction"
 import {
   Select,
   SelectTrigger,
   SelectContent,
   SelectItem,
 } from "@/components/ui/select"
+import { TransactionStatusNonPending } from "@/types/common"
 
 type Props = {
   options: TransactionStatusNonPending[]
