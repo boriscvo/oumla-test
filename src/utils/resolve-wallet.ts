@@ -1,6 +1,6 @@
 import { ethers } from "ethers"
 
-export const connectWallet = async () => {
+export const resolveWallet = async () => {
   if (!window.ethereum) throw new Error("MetaMask not installed")
   await window.ethereum.request({ method: "eth_requestAccounts" })
 

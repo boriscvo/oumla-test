@@ -1,14 +1,9 @@
-import { CONTRACT_ABI } from "@/const/contract-abi"
-import { ethers, EventLog } from "ethers"
-
-const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS!
+import { resolveContractAndProvider } from "@/utils/resolve-contract-and-provider"
+import { EventLog } from "ethers"
 
 export const fetchRecentActivity = async () => {
-  if (!window.ethereum) {
-    throw new Error("MetaMask not connected")
-  }
-  const provider = new ethers.BrowserProvider(window.ethereum)
-  const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider)
+  const { contract } = resolveContractAndProvider()
+
   const filter = contract.filters.TransactionCreated()
   const events = await contract.queryFilter(filter, -1000)
 

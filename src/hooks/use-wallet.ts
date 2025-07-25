@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react"
-import { connectWallet } from "@/utils/wallet"
+import { resolveWallet } from "@/utils/resolve-wallet"
 import useGlobalStore from "@/store/use-global-store"
-import type { MetaMaskInpageProvider } from "@metamask/providers"
-
-declare global {
-  interface Window {
-    ethereum?: MetaMaskInpageProvider
-  }
-}
 
 export const useWallet = () => {
   const setUserAddress = useGlobalStore((state) => state.setUserAddress)
@@ -26,7 +19,7 @@ export const useWallet = () => {
   const handleConnect = async () => {
     try {
       setIsLoading(true)
-      const { address } = await connectWallet()
+      const { address } = await resolveWallet()
       setUserAddress(address || null)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error")
@@ -41,8 +34,8 @@ export const useWallet = () => {
 
     eth
       .request({ method: "eth_accounts" })
-      .then((accounts) => {
-        const accList = accounts as string[]
+      .then((accounts: string[]) => {
+        const accList = accounts
         if (accList && accList.length > 0) {
           setUserAddress(accList[0])
         }
