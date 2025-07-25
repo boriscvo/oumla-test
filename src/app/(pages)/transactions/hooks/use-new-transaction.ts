@@ -1,14 +1,19 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { z } from "zod"
 import useGlobalStore from "@/store/use-global-store"
+import { useMutation } from "@tanstack/react-query"
+import { createNewTransaction } from "@/http/contract/create-new-transaction"
+import { TransactionPlacedOutcome } from "../types"
 
-export function useNewTransaction() {
+export function useNewTransaction(handleClose: () => void) {
+  const [outcome, setOutcome] = useState<TransactionPlacedOutcome | null>(null)
   const schema = z.object({
     to: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid Ethereum address"),
     amount: z.string().refine((val) => {
       const num = Number(val)
       return !isNaN(num) && num > 0
     }, "Amount must be a positive number"),
+    description: z.string().max(200, "Max 200 characters").optional(),
   })
 
   type FormData = z.infer<typeof schema>
@@ -35,6 +40,28 @@ export function useNewTransaction() {
     setDescription(value)
   }
 
+  const { mutate: newTransactionMutation, status: newTransactionStatus } =
+    useMutation({
+      mutationFn: async (data: FormData) => createNewTransaction(data),
+      onSuccess: (data) => {
+        setOutcome(data.isSuccess ? "placed" : "failed")
+      },
+      onError: () => {
+        setOutcome("failed")
+      },
+    })
+
+  const handleDialogClose = () => {
+    handleClose()
+    setTimeout(() => {
+      setTo("")
+      setAmount("")
+      setDescription("")
+      setError({})
+      setOutcome(null)
+    }, 300)
+  }
+
   const handleSubmit = () => {
     const result = schema.safeParse({ to, amount, description })
     if (!result.success) {
@@ -46,9 +73,20 @@ export function useNewTransaction() {
       return false
     }
     setError({})
-    //TODO: Handle the transaction submission logic
-    console.log("submitted")
+    newTransactionMutation({
+      to: result.data.to,
+      amount: result.data.amount,
+      description: result.data.description || "",
+    })
   }
+
+  const isSubmitInProgress = useMemo(() => {
+    return newTransactionStatus === "pending"
+  }, [newTransactionStatus])
+
+  const isSubmitted = useMemo(() => {
+    return !!(outcome || isSubmitInProgress)
+  }, [outcome, isSubmitInProgress])
 
   return {
     userAddress,
@@ -56,9 +94,14 @@ export function useNewTransaction() {
     amount,
     description,
     error,
+    outcome,
+    newTransactionStatus,
+    isSubmitInProgress,
+    isSubmitted,
     handleRecipientUpdate,
     handleAmountUpdate,
     handleDescriptionUpdate,
     handleSubmit,
+    handleDialogClose,
   }
 }

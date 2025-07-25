@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { resolveWallet } from "@/utils/resolve-wallet"
 import useGlobalStore from "@/store/use-global-store"
 
-export const useWallet = () => {
+export function useWallet() {
   const setUserAddress = useGlobalStore((state) => state.setUserAddress)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

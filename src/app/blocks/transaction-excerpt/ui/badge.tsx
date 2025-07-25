@@ -1,11 +1,11 @@
-import { ArrowDownToLine, ArrowUpToLine } from "lucide-react"
+import { ArrowUpRight, ArrowDownRight } from "lucide-react"
 
 type Props = {
   isSelf: boolean
 }
 
 function BadgeResolved({ isSelf }: Props) {
-  return isSelf ? <ArrowDownToLine size="36" /> : <ArrowUpToLine size="36" />
+  return isSelf ? <ArrowUpRight size="36" /> : <ArrowDownRight size="36" />
 }
 
 export function Badge({ isSelf }: Props) {

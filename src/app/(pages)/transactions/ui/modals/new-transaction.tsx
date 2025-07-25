@@ -1,5 +1,4 @@
 "use client"
-
 import {
   Dialog,
   DialogContent,
@@ -7,13 +6,10 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { LabelValueRow } from "@/app/atoms"
-import { Textarea } from "@/components/ui/textarea"
-import { Plus } from "lucide-react"
 import { useNewTransaction } from "../../hooks/use-new-transaction"
-import { NewTransactionError } from "./new-transaction.error"
+import { NewTransactionForm } from "./new-transaction-form"
+import { TransactionOutcome } from "./transaction-outcome"
+import { TransactionButton } from "./transaction-button"
 
 type Props = {
   isOpen: boolean
@@ -25,63 +21,47 @@ export function NewTransaction({ isOpen, handleClose }: Props) {
     userAddress,
     to,
     amount,
-    error,
     description,
+    error,
+    outcome,
+    isSubmitInProgress,
+    isSubmitted,
     handleRecipientUpdate,
     handleAmountUpdate,
     handleDescriptionUpdate,
     handleSubmit,
-  } = useNewTransaction()
+    handleDialogClose,
+  } = useNewTransaction(handleClose)
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent>
+    <Dialog open={isOpen} onOpenChange={handleDialogClose}>
+      <DialogContent aria-describedby={undefined}>
         <DialogHeader>
-          <DialogTitle>Create New Transaction</DialogTitle>
+          {!isSubmitted && <DialogTitle>Create New Transaction</DialogTitle>}
         </DialogHeader>
-        <LabelValueRow
-          isColumn
-          label="From"
-          value={<Input placeholder={userAddress} readOnly />}
-        />
-        <LabelValueRow
-          isColumn
-          label="To"
-          value={
-            <Input
-              placeholder="Recipient Address"
-              autoFocus
-              value={to}
-              onChange={(e) => handleRecipientUpdate(e.target.value)}
-            />
-          }
-        />
-        <LabelValueRow
-          isColumn
-          label="Amount"
-          value={
-            <Input
-              placeholder="Amount in ETH"
-              value={amount}
-              onChange={(e) => handleAmountUpdate(e.target.value)}
-            />
-          }
-        />
-        <LabelValueRow
-          isColumn
-          label="Description"
-          value={
-            <Textarea
-              placeholder="Transaction Description"
-              value={description}
-              onChange={(e) => handleDescriptionUpdate(e.target.value)}
-            />
-          }
-        />
-        <NewTransactionError to={error.to} amount={error.amount} />
+        {isSubmitted ? (
+          <TransactionOutcome
+            isSubmitInProgress={isSubmitInProgress || true}
+            outcome={outcome}
+          />
+        ) : (
+          <NewTransactionForm
+            userAddress={userAddress}
+            to={to}
+            amount={amount}
+            description={description}
+            error={error}
+            handleRecipientUpdate={handleRecipientUpdate}
+            handleAmountUpdate={handleAmountUpdate}
+            handleDescriptionUpdate={handleDescriptionUpdate}
+            handleSubmit={handleSubmit}
+          />
+        )}
         <DialogFooter>
-          <Button size="lg" className="w-full mt-4" onClick={handleSubmit}>
-            <Plus /> Create Transaction
-          </Button>
+          <TransactionButton
+            isSubmitted={isSubmitted}
+            handleSubmit={handleSubmit}
+            handleClose={handleDialogClose}
+          />
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -31,7 +31,7 @@ export function TransactionExcerpt({
   const userAddress = useGlobalStore((state) => state.userAddress)
   return (
     <Container>
-      <Badge isSelf={userAddress === to} />
+      <Badge isSelf={userAddress === from} />
       <InfoSection>
         <FromOrTo to={to} from={from} isSelf={userAddress === from} />
         <SecondaryProps>
@@ -40,7 +40,7 @@ export function TransactionExcerpt({
           <TransactionLabel status={status} />
           <Stop />
           <Button
-            className="px-0 underline cursor-pointer"
+            className="pl-0! underline cursor-pointer text-base"
             variant="link"
             onClick={() => handleTransactionClick(id)}
           >

@@ -16,7 +16,7 @@ function ErrorResolved({ to, amount }: Props) {
   }
 }
 
-export function NewTransactionError({ to, amount }: Props) {
+export function TransactionError({ to, amount }: Props) {
   return (
     <div className="mx-4 text-md text-negative">
       <ErrorResolved to={to} amount={amount} />

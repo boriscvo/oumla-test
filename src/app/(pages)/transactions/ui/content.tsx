@@ -1,11 +1,12 @@
 "use client"
-
+import { useWalletConnector } from "@/hooks/use-wallet-connector"
 import { useTransactions } from "../hooks/use-transactions"
 import { FilterHeader } from "./filter-header"
 import { Group } from "./group"
 import { NewTransaction, TransactionDetails } from "./modals"
 
 export function Content() {
+  useWalletConnector()
   const {
     filterOptions,
     isNewTransactionOpen,

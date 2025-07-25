@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { TransactionStatusNonPending } from "@/types/api/transaction"
 import { FilterStateVariant } from "../types"
@@ -48,7 +49,10 @@ export function FilterHeader({
           />
         )}
         <TransactionInput value={inputValue} onChange={handleInputChange} />
-        <Button className="ml-auto" onClick={handleNewTransactionOpen}>
+        <Button
+          className="ml-auto cursor-pointer text-base h-10 tracking-wide"
+          onClick={handleNewTransactionOpen}
+        >
           + New Transaction
         </Button>
       </div>

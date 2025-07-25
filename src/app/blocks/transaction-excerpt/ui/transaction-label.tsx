@@ -10,21 +10,21 @@ export function TransactionLabel({ status }: Props) {
     case "completed":
       return (
         <div className="flex items-center text-positive">
-          <CheckCircle className="w-4 h-4 mr-2" />
+          <CheckCircle className="w-4 h-4 mr-2 mt-[1px]" />
           <span>Completed</span>
         </div>
       )
     case "rejected":
       return (
         <div className="flex items-center text-negative">
-          <XCircle className="w-4 h-4 mr-2" />
+          <XCircle className="w-4 h-4 mr-2 mt-[1px]" />
           <span>Rejected</span>
         </div>
       )
     case "pending":
       return (
         <div className="flex items-center text-warning">
-          <Clock className="w-4 h-4 mr-2" />
+          <Clock className="w-4 h-4 mr-2 mt-[1px]" />
           <span>Pending</span>
         </div>
       )
@@ -32,7 +32,7 @@ export function TransactionLabel({ status }: Props) {
     default:
       return (
         <div className="flex items-center text-info font-medium">
-          <AlertCircle className="w-4 h-4 mr-2 -mt-[1px]" />
+          <AlertCircle className="w-4 h-4 mr-2" />
           <span>Active</span>
         </div>
       )
