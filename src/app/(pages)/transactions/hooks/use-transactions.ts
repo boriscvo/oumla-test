@@ -165,7 +165,7 @@ export function useTransactions() {
 
   useEffect(() => {
     if (allTransactionsData) {
-      const reversedTransactions = allTransactionsData.reverse()
+      const reversedTransactions = [...allTransactionsData].reverse()
       handleSetAllPending(reversedTransactions)
       handleSetAllNonPending(reversedTransactions)
     }

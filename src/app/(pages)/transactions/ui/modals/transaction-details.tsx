@@ -20,7 +20,7 @@ export function TransactionDetails({ transaction, handleClose }: Props) {
         <DialogHeader>
           <DialogTitle>Transaction #{transaction?.id || "-"}</DialogTitle>
         </DialogHeader>
-        <div className="space-y-2">
+        <div className="space-y-3">
           <LabelValueRow label="To" value={transaction?.to} />
           <LabelValueRow label="From" value={transaction?.from} />
           <LabelValueRow
