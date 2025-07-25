@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Link } from "lucide-react"
 
 type Props = {
+  isLoading: boolean
   handleConnect: () => void
 }
 
@@ -14,7 +15,7 @@ const Description = ({ children }: { children: React.ReactNode }) => {
   return <p className="max-md:flex text-lg flex-col text-left">{children}</p>
 }
 
-export function NotConnectedAccount({ handleConnect }: Props) {
+export function NotConnectedAccount({ isLoading, handleConnect }: Props) {
   return (
     <Container>
       <Description>
@@ -24,6 +25,7 @@ export function NotConnectedAccount({ handleConnect }: Props) {
       <Button
         size="lg"
         className="mt-auto text-base py-4 tracking-wide cursor-pointer"
+        disabled={isLoading}
         onClick={handleConnect}
       >
         Connect Wallet <Link className="ml-2" />

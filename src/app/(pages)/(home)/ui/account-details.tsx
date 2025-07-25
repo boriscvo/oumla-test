@@ -5,32 +5,18 @@ import { AccountDetailsLoading } from "./loading/account-details-loading"
 import { NotConnectedAccount } from "./not-connected-account"
 
 export function AccountDetails() {
-  const {
-    userAddress,
-    userRole,
-    totalTransactions,
-    pendingApprovals,
-    formattedAddress,
-    isLoading,
-    isError,
-    isPageMounted,
-    handleConnect,
-  } = useAccountDetails()
+  const { userAddress, isLoading, isPageMounted, handleConnect } =
+    useAccountDetails()
 
-  if (!isPageMounted || isLoading || isError) {
+  if (!isPageMounted) {
     return <AccountDetailsLoading />
   }
 
   if (userAddress) {
-    return (
-      <ConnectedAccount
-        walletAddress={formattedAddress}
-        userRole={userRole}
-        totalTransactions={totalTransactions}
-        pendingApprovals={pendingApprovals}
-      />
-    )
+    return <ConnectedAccount />
   }
 
-  return <NotConnectedAccount handleConnect={handleConnect} />
+  return (
+    <NotConnectedAccount handleConnect={handleConnect} isLoading={isLoading} />
+  )
 }
