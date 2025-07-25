@@ -1,7 +1,13 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { connectWallet } from "@/utils/wallet"
 import useGlobalStore from "@/store/use-global-store"
-import { Eip1193Provider } from "ethers"
+import type { MetaMaskInpageProvider } from "@metamask/providers"
+
+declare global {
+  interface Window {
+    ethereum?: MetaMaskInpageProvider
+  }
+}
 
 export const useWallet = () => {
   const setUserAddress = useGlobalStore((state) => state.setUserAddress)
@@ -9,14 +15,10 @@ export const useWallet = () => {
   const [error, setError] = useState<string | null>(null)
   const [isPageMounted, setIsPageMounted] = useState(false)
 
-  const handleChangeAccount = (account?: string) => {
-    if (!account) {
-      setUserAddress(null)
-      setError(null)
-      setIsLoading(false)
-      return
-    }
-    setUserAddress(account)
+  const handleChangeAccount = (...args: unknown[]) => {
+    const accounts = args[0] as string[]
+    const account = accounts?.[0]
+    setUserAddress(account || null)
     setError(null)
     setIsLoading(false)
   }
@@ -27,43 +29,34 @@ export const useWallet = () => {
       const { address } = await connectWallet()
       setUserAddress(address || null)
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message)
-      } else {
-        setError("Unknown error")
-      }
+      setError(err instanceof Error ? err.message : "Unknown error")
     } finally {
       setIsLoading(false)
     }
   }
 
   useEffect(() => {
-    const eth = window.ethereum as
-      | (Eip1193Provider & { selectedAddress?: string })
-      | undefined
+    const eth = window.ethereum
+    if (!eth) return
 
-    if (eth?.selectedAddress) {
-      setUserAddress(eth.selectedAddress)
-    }
-    setIsPageMounted(true)
-    ;(eth as unknown as EventTarget)?.addEventListener?.(
-      "accountsChanged",
-      () => handleChangeAccount(eth?.selectedAddress)
-    )
-    ;(eth as unknown as EventTarget)?.addEventListener?.(
-      "connect",
-      handleConnect
-    )
+    eth
+      .request({ method: "eth_accounts" })
+      .then((accounts) => {
+        const accList = accounts as string[]
+        if (accList && accList.length > 0) {
+          setUserAddress(accList[0])
+        }
+      })
+      .finally(() => {
+        setIsPageMounted(true)
+      })
+
+    eth.on("accountsChanged", handleChangeAccount)
+    eth.on("connect", handleConnect)
 
     return () => {
-      ;(eth as unknown as EventTarget)?.removeEventListener?.(
-        "accountsChanged",
-        () => handleChangeAccount(eth?.selectedAddress)
-      )
-      ;(eth as unknown as EventTarget)?.removeEventListener?.(
-        "connect",
-        handleConnect
-      )
+      eth.removeListener("accountsChanged", handleChangeAccount)
+      eth.removeListener("connect", handleConnect)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
