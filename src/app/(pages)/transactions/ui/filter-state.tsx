@@ -30,6 +30,7 @@ const FilterStateLabel = React.memo(({ filterState }: Props) => {
       return <span>All Non-Pending Transactions, 20 most recent</span>
   }
 })
+FilterStateLabel.displayName = "FilterStateLabel"
 
 export function FilterState({
   filterState,

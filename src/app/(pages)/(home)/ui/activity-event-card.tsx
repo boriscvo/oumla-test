@@ -9,15 +9,25 @@ export function ActivityEventCard() {
     return null
   }
 
+  if (recentActivity.length === 0) {
+    return (
+      <CardWithTitle title="Recent Activity">
+        <p className="text-medim text-lg">No recent activity recorded.</p>
+      </CardWithTitle>
+    )
+  }
+
   return (
     <CardWithTitle title="Recent Activity">
       {recentActivity.map((activity) => (
         <ActivityEventTab
-          key={activity.timestamp + activity.label + activity.description}
+          key={activity.timestamp + activity.description}
           type={activity.type}
-          label={activity.label}
+          to={activity.to}
+          from={activity.from}
           description={activity.description}
           timestamp={activity.timestamp}
+          userAddress={userAddress}
         />
       ))}
     </CardWithTitle>

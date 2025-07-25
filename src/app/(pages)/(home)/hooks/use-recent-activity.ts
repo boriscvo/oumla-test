@@ -1,12 +1,11 @@
 import { fetchRecentActivity } from "@/http/contract/fetch-recent-activity"
 import useGlobalStore from "@/store/use-global-store"
-import { ActivityEvent } from "@/types/api"
 import { useQuery } from "@tanstack/react-query"
 
-export function useActivityEventCard() {
+export function useRecentActivity() {
   const userAddress = useGlobalStore((state) => state.userAddress)
-  const { data: recentActivityRaw, isLoading: isRecentActivityLoading } =
-    useQuery({
+  const { data: recentActivity, isLoading: isRecentActivityLoading } = useQuery(
+    {
       queryKey: ["recentActivity", userAddress],
       queryFn: () => {
         if (!userAddress) {
@@ -15,19 +14,10 @@ export function useActivityEventCard() {
         return fetchRecentActivity()
       },
       enabled: !!userAddress,
-    })
-
-  const recentActivity: ActivityEvent[] =
-    recentActivityRaw?.map((activity) => ({
-      type: activity.status as ActivityEvent["type"],
-      from: activity.from,
-      to: activity.to,
-      description: activity.description,
-      timestamp: activity.timestamp,
-    })) || []
+    }
+  )
 
   return {
-    userAddress,
     recentActivity,
     isRecentActivityLoading,
   }

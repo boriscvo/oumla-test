@@ -1,5 +1,5 @@
 export { Container } from "./container"
 export { Badge } from "./badge"
-export { BasicInfo } from "./basic-info"
 export { TimeStamp } from "./time-stamp"
 export { BadgeAndInfo } from "./badge-and-info"
+export { Description } from "./description"

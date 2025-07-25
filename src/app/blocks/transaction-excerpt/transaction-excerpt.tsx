@@ -2,7 +2,6 @@ import { Transaction } from "@/types/api/transaction"
 import {
   Amount,
   Badge,
-  Basics,
   Container,
   DateStamp,
   InfoSection,
@@ -14,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button"
 import useGlobalStore from "@/store/use-global-store"
 import { Link } from "lucide-react"
+import { FromOrTo } from "@/app/atoms/from-or-to/from-or-to"
 
 type Props = Transaction & {
   handleTransactionClick: (id: number) => void
@@ -33,7 +33,7 @@ export function TransactionExcerpt({
     <Container>
       <Badge isSelf={userAddress === to} />
       <InfoSection>
-        <Basics to={to} from={from} isSelf={userAddress === to} />
+        <FromOrTo to={to} from={from} isSelf={userAddress === from} />
         <SecondaryProps>
           <DateStamp date={createdAt} />
           <Stop />

@@ -2,7 +2,7 @@ import { Transaction } from "@/types/api/transaction"
 
 type Props = Pick<Transaction, "to" | "from"> & { isSelf: boolean }
 
-export function Basics({ to, from, isSelf }: Props) {
+export function FromOrTo({ to, from, isSelf }: Props) {
   if (isSelf) {
     return (
       <div className="flex text-lg">
