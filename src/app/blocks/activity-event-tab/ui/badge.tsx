@@ -1,5 +1,5 @@
 import { ActivityEvent } from "@/types/api"
-import { User, CheckCircle, RefreshCw } from "lucide-react"
+import { Clock, Loader, CheckCircle2, XCircle } from "lucide-react"
 
 function BadgeResolved({ type }: Pick<ActivityEvent, "type">) {
   const iconProps = {
@@ -8,14 +8,15 @@ function BadgeResolved({ type }: Pick<ActivityEvent, "type">) {
   }
 
   switch (type) {
-    case "transaction":
-      return <RefreshCw {...iconProps} />
-    case "approval":
-      return <CheckCircle {...iconProps} />
-    case "user":
-      return <User {...iconProps} />
+    case 0:
+      return <Clock {...iconProps} />
+    case 1:
+      return <Loader {...iconProps} />
+    case 2:
+      return <CheckCircle2 {...iconProps} />
+    case 3:
     default:
-      return null
+      return <XCircle {...iconProps} />
   }
 }
 

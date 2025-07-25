@@ -1,6 +1,12 @@
 import { ActivityEvent } from "@/types/api"
-import { Badge, Container, TimeStamp, BadgeAndInfo } from "./ui"
-import { Description } from "./ui/description"
+import {
+  Badge,
+  Container,
+  TimeStamp,
+  BadgeAndInfo,
+  Info,
+  Description,
+} from "./ui"
 import { FromOrTo } from "@/app/atoms"
 
 export function ActivityEventTab({
@@ -15,8 +21,10 @@ export function ActivityEventTab({
     <Container>
       <BadgeAndInfo>
         <Badge type={type} />
-        <FromOrTo to={to} from={from} isSelf={userAddress === from} />
-        <Description>{description}</Description>
+        <Info>
+          <FromOrTo to={to} from={from} isSelf={userAddress === from} />
+          <Description>{description}</Description>
+        </Info>
       </BadgeAndInfo>
       <TimeStamp timestamp={timestamp} />
     </Container>

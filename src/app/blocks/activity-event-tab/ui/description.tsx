@@ -3,5 +3,5 @@ type Props = {
 }
 
 export function Description({ children }: Props) {
-  return <p className="mt-2">{children}</p>
+  return <p className="mt-1">{children}</p>
 }

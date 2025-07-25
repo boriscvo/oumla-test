@@ -19,11 +19,11 @@ export function useActivityEventCard() {
 
   const recentActivity: ActivityEvent[] =
     recentActivityRaw?.map((activity) => ({
-      type: activity.status as ActivityEvent["type"],
+      type: Number(activity.status),
       from: activity.from,
       to: activity.to,
       description: activity.description,
-      timestamp: activity.timestamp,
+      timestamp: Number(activity.timestamp),
     })) || []
 
   return {

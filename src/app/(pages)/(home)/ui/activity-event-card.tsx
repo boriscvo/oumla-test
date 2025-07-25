@@ -19,7 +19,7 @@ export function ActivityEventCard() {
 
   return (
     <CardWithTitle title="Recent Activity">
-      {recentActivity.map((activity) => (
+      {recentActivity.reverse().map((activity) => (
         <ActivityEventTab
           key={activity.timestamp + activity.description}
           type={activity.type}
