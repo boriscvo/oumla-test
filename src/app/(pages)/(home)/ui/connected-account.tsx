@@ -1,30 +1,17 @@
 "use client"
 import { LabelValueRow, LoadingSkeleton } from "@/app/atoms"
-import { useUserDetails } from "../hooks/use-user-details"
-import useGlobalStore from "@/store/use-global-store"
-import { useTotalTransactions } from "../hooks/use-total-transactions"
+import { useTotalTransactions, useUserDetails } from "../hooks"
 import { usePendingApproval } from "../hooks/use-pending-approvals"
-import { useMemo } from "react"
 
 const Container = ({ children }: { children: React.ReactNode }) => {
   return <div className="w-[40%] flex flex-col space-y-2">{children}</div>
 }
 
 export function ConnectedAccount() {
-  const userAddress = useGlobalStore((state) => state.userAddress)
-  const { role, isUserDetailsLoading } = useUserDetails()
+  const { role, formattedAddress, isUserDetailsLoading } = useUserDetails()
   const { totalTransactions, isTotalTransactionsLoading } =
     useTotalTransactions()
   const { pendingApprovals, isPendingApprovalsLoading } = usePendingApproval()
-
-  const formattedAddress = useMemo(() => {
-    const address = userAddress
-    if (!address) return "Not connected"
-    if (address.length < 10) {
-      return address
-    }
-    return `${address.slice(0, 4)}...${address.slice(-4)}`
-  }, [userAddress])
 
   return (
     <Container>

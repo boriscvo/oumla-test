@@ -1,6 +1,7 @@
 import { fetchUserDetails } from "@/http/contract/fetch-user-details"
 import useGlobalStore from "@/store/use-global-store"
 import { useQuery } from "@tanstack/react-query"
+import { useMemo } from "react"
 
 export function useUserDetails() {
   const userAddress = useGlobalStore((state) => state.userAddress)
@@ -16,7 +17,17 @@ export function useUserDetails() {
     enabled: !!userAddress,
   })
 
+  const formattedAddress = useMemo(() => {
+    const address = userAddress
+    if (!address) return "Not connected"
+    if (address.length < 10) {
+      return address
+    }
+    return `${address.slice(0, 4)}...${address.slice(-4)}`
+  }, [userAddress])
+
   return {
+    formattedAddress,
     role: userData?.role,
     isUserDetailsLoading,
   }
