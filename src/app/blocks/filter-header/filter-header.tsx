@@ -1,10 +1,10 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import { FilterStateVariant } from "../types"
-import { FilterState } from "./filter-state"
-import { TransactionInput } from "./transaction-input"
-import { TransactionSelect } from "./transaction-select"
+import { FilterState } from "./ui/filter-state"
+import { TransactionInput } from "./ui/transaction-input"
+import { TransactionSelect } from "./ui/transaction-select"
 import { TransactionStatusNonPending } from "@/types/common"
+import { FilterStateVariant } from "./types"
 
 type Props =
   | {

@@ -1,11 +1,11 @@
 import { Transaction } from "@/types/api/transaction"
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { FilterStateVariant } from "../types"
 import { useQuery } from "@tanstack/react-query"
 import { fetchAllTransactions } from "@/http/contract/fetch-all-transactions"
 import useGlobalStore from "@/store/use-global-store"
 import { ActivityStatus } from "@/types/api/recent-activity"
 import { TransactionStatusNonPending } from "@/types/common"
+import { FilterStateVariant } from "@/app/blocks/filter-header/types"
 
 export function useTransactions() {
   const userAddress = useGlobalStore((state) => state.userAddress)

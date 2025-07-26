@@ -1,6 +1,6 @@
 import { TransactionExcerpt } from "@/app/blocks"
 import { Transaction } from "@/types/api/transaction"
-import { Loading } from "./loading"
+import { Loading } from "./ui/loading"
 
 type Props = {
   isLoading?: boolean
@@ -26,7 +26,7 @@ function GroupList({ isLoading, transactions, handleTransactionClick }: Props) {
   ))
 }
 
-export function Group(props: Props) {
+export function TransactionGroup(props: Props) {
   return (
     <div className="mt-8">
       <GroupList {...props} />

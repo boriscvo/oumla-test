@@ -1,8 +1,7 @@
 "use client"
 import { useWalletConnector } from "@/hooks/use-wallet-connector"
+import { FilterHeader, TransactionGroup } from "@/app/blocks"
 import { useTransactions } from "../hooks/use-transactions"
-import { FilterHeader } from "./filter-header"
-import { Group } from "./group"
 import { NewTransaction, TransactionDetails } from "./modals"
 
 export function Content() {
@@ -37,7 +36,7 @@ export function Content() {
           handleInputChange={handleInputFilterPendingTransactions}
           handleNewTransactionOpen={handleNewTransactionOpen}
         />
-        <Group
+        <TransactionGroup
           isLoading={isLoading}
           transactions={pendingTransactions}
           handleTransactionClick={handleActiveTransactionOpen}
@@ -54,7 +53,7 @@ export function Content() {
           selectValue={filterStateNonPending}
           handleSelectChange={handleSelectFilterNonPending}
         />
-        <Group
+        <TransactionGroup
           isLoading={isLoading}
           transactions={nonPendingTransactions}
           handleTransactionClick={handleActiveTransactionOpen}
