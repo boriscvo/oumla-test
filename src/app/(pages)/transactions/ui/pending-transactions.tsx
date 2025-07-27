@@ -1,5 +1,5 @@
+import { FilterStateVariant } from "@/app/blocks/filter-header/types"
 import { Transaction } from "@/types/api/transaction"
-import { FilterStateVariant } from "../types"
 
 type Props = {
   transactions: Transaction[]

@@ -1,3 +1,4 @@
+"use client"
 import { ChartPoint } from "@/types/common"
 import { Stage, Layer, Line, Circle } from "react-konva"
 import { useCanvas } from "../hooks/use-canvas"
@@ -12,7 +13,7 @@ type Props = {
   data: ChartPoint[]
 }
 
-export default function Canvas({ width, height, data }: Props) {
+export default function TimeSeries({ width, height, data }: Props) {
   const { fullPath, date, amount, handleUpdateTooltip, handleResetTooltip } =
     useCanvas({ width, height, data })
   return (

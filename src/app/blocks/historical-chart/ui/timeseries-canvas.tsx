@@ -1,3 +1,4 @@
+"use client"
 import { Layer, Line, Stage } from "react-konva"
 
 type Props = {
@@ -5,7 +6,7 @@ type Props = {
   height: number
 }
 
-export default function PlacheholderCanvas({ width, height }: Props) {
+export default function TimeSeriesCanvas({ width, height }: Props) {
   return (
     <div className="relative opacity-50">
       <Stage

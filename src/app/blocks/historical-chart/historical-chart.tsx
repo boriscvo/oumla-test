@@ -4,11 +4,11 @@ import { ChartProps } from "./types"
 import { Container } from "./ui"
 import { useHistoricalChart } from "./hooks/use-historical-chart"
 
-const Canvas = dynamic(() => import("./ui/canvas"), {
+const TimeSeries = dynamic(() => import("./ui/timeseries"), {
   ssr: false,
 })
 
-const PlacheholderCanvas = dynamic(() => import("./ui/placeholder-canvas"), {
+const TimeSeriesCanvas = dynamic(() => import("./ui/timeseries-canvas"), {
   ssr: false,
 })
 
@@ -24,7 +24,7 @@ export function HistoricalChart({ points, isLoading }: ChartProps) {
               Not enough data to display the timeseries.
             </div>
           )}
-          <PlacheholderCanvas width={canvasWidth} height={canvasHeight} />
+          <TimeSeriesCanvas width={canvasWidth} height={canvasHeight} />
         </Container>
         <div ref={historicalPriceRef} className="w-full h-0"></div>
       </>
@@ -34,7 +34,7 @@ export function HistoricalChart({ points, isLoading }: ChartProps) {
   return (
     <>
       <Container height={canvasHeight}>
-        <Canvas width={canvasWidth} height={canvasHeight} data={points} />
+        <TimeSeries width={canvasWidth} height={canvasHeight} data={points} />
       </Container>
       <div ref={historicalPriceRef} className="w-full h-0"></div>
     </>

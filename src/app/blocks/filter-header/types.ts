@@ -18,7 +18,3 @@ export type FilterStateVariant =
 export type AllowedOptionTypes =
   | TransactionStatusNonPending
   | TransactionStatusWithAll
-
-export type AllowedOptionTypes =
-  | TransactionStatusNonPending
-  | TransactionStatusWithAll
