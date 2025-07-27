@@ -85,17 +85,17 @@ export function useTransactions() {
     setNonPendingTransactions(nonPending.slice(-20))
   }
 
-  const [filterStateNonPending, setFilterStateNonPending] =
+  const [filterState, setFilterState] =
     useState<TransactionStatusNonPending>("all")
 
   const [inputStatePending, setInputStatePending] = useState<string>("")
   const [inputStateNonPending, setInputStateNonPending] = useState<string>("")
 
-  const handleSelectFilterNonPending = useCallback(
+  const handleSelectFilter = useCallback(
     (filter: TransactionStatusNonPending) => {
       switch (filter) {
         case "active":
-          setFilterStateNonPending("active")
+          setFilterState("active")
           setNonPendingTransactions(
             fullNonPendingTransactions.filter(
               (transaction) => transaction.status === ActivityStatus.Active
@@ -103,7 +103,7 @@ export function useTransactions() {
           )
           return
         case "completed":
-          setFilterStateNonPending("completed")
+          setFilterState("completed")
           setNonPendingTransactions(
             fullNonPendingTransactions.filter(
               (transaction) => transaction.status === ActivityStatus.Completed
@@ -111,7 +111,7 @@ export function useTransactions() {
           )
           return
         case "rejected":
-          setFilterStateNonPending("rejected")
+          setFilterState("rejected")
           setNonPendingTransactions(
             fullNonPendingTransactions.filter(
               (transaction) => transaction.status === ActivityStatus.Rejected
@@ -120,7 +120,7 @@ export function useTransactions() {
           return
         case null:
         default:
-          setFilterStateNonPending("all")
+          setFilterState("all")
           setNonPendingTransactions(fullNonPendingTransactions.slice(-20))
       }
     },
@@ -138,9 +138,24 @@ export function useTransactions() {
   }
 
   const handleInputFilterNonPendingTransactions = (input: string) => {
+    const fullNonPendingData = fullNonPendingTransactions.filter(
+      (transaction) => {
+        switch (filterState) {
+          case "active":
+            return transaction.status === ActivityStatus.Active
+          case "completed":
+            return transaction.status === ActivityStatus.Completed
+          case "rejected":
+            return transaction.status === ActivityStatus.Rejected
+          case "all":
+          default:
+            return true
+        }
+      }
+    )
     setInputStateNonPending(input)
     setNonPendingTransactions(
-      fullNonPendingTransactions.filter(
+      fullNonPendingData.filter(
         (transaction) =>
           transaction.to.includes(input) || transaction.from.includes(input)
       )
@@ -158,23 +173,23 @@ export function useTransactions() {
     return "pending"
   }, [inputStatePending])
 
-  const stateOfNonPendingFiltering: FilterStateVariant = useMemo(() => {
-    if (filterStateNonPending && !inputStateNonPending) {
-      return filterStateNonPending
+  const stateOfFiltering: FilterStateVariant = useMemo(() => {
+    if (filterState && !inputStateNonPending) {
+      return filterState
     }
-    if (!filterStateNonPending && inputStateNonPending) {
+    if (!filterState && inputStateNonPending) {
       return "all-and-text"
     }
-    if (filterStateNonPending && inputStateNonPending) {
-      return `${filterStateNonPending}-and-text` as FilterStateVariant
+    if (filterState && inputStateNonPending) {
+      return `${filterState}-and-text` as FilterStateVariant
     }
     return "all"
-  }, [filterStateNonPending, inputStateNonPending])
+  }, [filterState, inputStateNonPending])
 
   const resetFilters = () => {
     setInputStatePending("")
     setInputStateNonPending("")
-    setFilterStateNonPending("all")
+    setFilterState("all")
   }
 
   useEffect(() => {
@@ -193,13 +208,13 @@ export function useTransactions() {
     nonPendingTransactions,
     isNewTransactionOpen,
     activeTransaction,
-    filterStateNonPending,
+    filterState,
     inputStatePending,
     inputStateNonPending,
     stateOfPendingFiltering,
-    stateOfNonPendingFiltering,
+    stateOfFiltering,
     handleRefetchAllTransactions,
-    handleSelectFilterNonPending,
+    handleSelectFilter,
     handleInputFilterPendingTransactions,
     handleInputFilterNonPendingTransactions,
     handleActiveTransactionOpen,

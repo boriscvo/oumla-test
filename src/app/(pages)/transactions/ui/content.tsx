@@ -13,13 +13,13 @@ export function Content() {
     activeTransaction,
     pendingTransactions,
     nonPendingTransactions,
-    filterStateNonPending,
+    filterState,
     inputStatePending,
     inputStateNonPending,
     stateOfPendingFiltering,
-    stateOfNonPendingFiltering,
+    stateOfFiltering,
     handleRefetchAllTransactions,
-    handleSelectFilterNonPending,
+    handleSelectFilter,
     handleInputFilterPendingTransactions,
     handleInputFilterNonPendingTransactions,
     handleActiveTransactionOpen,
@@ -47,12 +47,12 @@ export function Content() {
         <FilterHeader
           hasSelect={true}
           inputValue={inputStateNonPending}
-          filterState={stateOfNonPendingFiltering}
+          filterState={stateOfFiltering}
           handleInputChange={handleInputFilterNonPendingTransactions}
           handleNewTransactionOpen={handleNewTransactionOpen}
           options={filterOptions}
-          selectValue={filterStateNonPending}
-          handleSelectChange={handleSelectFilterNonPending}
+          selectValue={filterState}
+          handleSelectChange={handleSelectFilter}
         />
         <TransactionGroup
           isLoading={isLoading}
