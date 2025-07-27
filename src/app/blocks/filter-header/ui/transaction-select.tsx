@@ -4,20 +4,20 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select"
-import { TransactionStatusNonPending } from "@/types/common"
 
-type Props = {
-  options: TransactionStatusNonPending[]
-  value: TransactionStatusNonPending
-  onChange: (value: TransactionStatusNonPending) => void
+type Props<T extends string = string> = {
+  options: T[]
+  value: T
+  onChange: (value: T) => void
 }
 
-export function TransactionSelect({ options, value, onChange }: Props) {
+export function TransactionSelect<T extends string = string>({
+  options,
+  value,
+  onChange,
+}: Props<T>) {
   return (
-    <Select
-      onValueChange={(value: TransactionStatusNonPending) => onChange(value)}
-      value={value}
-    >
+    <Select onValueChange={(value: T) => onChange(value)} value={value}>
       <SelectTrigger className="w-[14.5rem] text-lg py-5 border border-white overflow-clip">
         <span className="ml-2">Selected: {value}</span>
       </SelectTrigger>

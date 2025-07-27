@@ -1,3 +1,8 @@
+import {
+  TransactionStatusNonPending,
+  TransactionStatusWithAll,
+} from "@/types/common/transaction-status"
+
 export type FilterStateVariant =
   | "all"
   | "all-and-text"
@@ -9,3 +14,11 @@ export type FilterStateVariant =
   | "completed-and-text"
   | "rejected"
   | "rejected-and-text"
+
+export type AllowedOptionTypes =
+  | TransactionStatusNonPending
+  | TransactionStatusWithAll
+
+export type AllowedOptionTypes =
+  | TransactionStatusNonPending
+  | TransactionStatusWithAll

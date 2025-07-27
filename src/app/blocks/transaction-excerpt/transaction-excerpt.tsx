@@ -1,5 +1,7 @@
+"use client"
 import { Transaction } from "@/types/api/transaction"
 import {
+  Action,
   Amount,
   Badge,
   Container,
@@ -10,44 +12,46 @@ import {
   Stop,
   TransactionLabel,
 } from "./ui"
-import { Button } from "@/components/ui/button"
 import useGlobalStore from "@/store/use-global-store"
-import { Link } from "lucide-react"
 import { FromOrTo } from "@/app/atoms/from-or-to/from-or-to"
+import { TransactionViewVariant } from "@/types/common"
 
 type Props = Transaction & {
-  handleTransactionClick: (id: number) => void
+  variant?: TransactionViewVariant
+  handleTransactionClick: (id: number, mode?: "approve" | "reject") => void
 }
 
 export function TransactionExcerpt({
+  variant = "transaction",
   id,
   to,
   amount,
   status,
   timestamp,
   from,
+  approvalId,
   handleTransactionClick,
 }: Props) {
   const userAddress = useGlobalStore((state) => state.userAddress)
+  const isSelf = userAddress?.toLowerCase() === from.toLowerCase()
 
   return (
     <Container>
-      <Badge isSelf={userAddress === from} />
+      <Badge isSelf={isSelf} />
       <InfoSection>
-        <FromOrTo to={to} from={from} isSelf={userAddress === from} />
+        <FromOrTo to={to} from={from} isSelf={isSelf} />
         <SecondaryProps>
           <DateStamp date={timestamp} />
           <Stop />
           <TransactionLabel status={status} />
-          <Stop />
-          <Button
-            className="pl-0! underline cursor-pointer text-base"
-            variant="link"
-            onClick={() => handleTransactionClick(id)}
-          >
-            View Details
-            <Link className="h-4 w-4 -mt-[0.5]" />
-          </Button>
+          <Action
+            id={id}
+            isSelf={isSelf}
+            variant={variant}
+            approvalId={approvalId}
+            status={status}
+            handleActionClick={handleTransactionClick}
+          />
         </SecondaryProps>
       </InfoSection>
       <Separator />

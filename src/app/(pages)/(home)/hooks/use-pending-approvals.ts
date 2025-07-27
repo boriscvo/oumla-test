@@ -17,7 +17,7 @@ export function usePendingApproval() {
     })
 
   return {
-    pendingApprovals: pendingApprovals?.length,
+    pendingApprovals: pendingApprovals,
     isPendingApprovalsLoading,
   }
 }

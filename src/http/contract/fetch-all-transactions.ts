@@ -19,5 +19,6 @@ export async function fetchAllTransactions() {
     description: tx.description,
     timestamp: Number(tx.timestamp),
     status: Number(tx.status),
+    approvalId: Number(tx.approvalId),
   })) as Transaction[]
 }

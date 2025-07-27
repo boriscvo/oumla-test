@@ -25,6 +25,9 @@ export function useWalletConnector() {
       const accList = accounts
       if (accList && accList.length > 0) {
         setUserAddress(accList[0])
+      } else {
+        setUserAddress(null)
+        router.push("/")
       }
     })
 

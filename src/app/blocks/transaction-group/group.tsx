@@ -3,12 +3,18 @@ import { Transaction } from "@/types/api/transaction"
 import { Loading } from "./ui/loading"
 
 type Props = {
+  variant?: "transaction" | "approval"
   isLoading?: boolean
   transactions: Transaction[]
-  handleTransactionClick: (id: number) => void
+  handleTransactionClick: (id: number, mode?: "approve" | "reject") => void
 }
 
-function GroupList({ isLoading, transactions, handleTransactionClick }: Props) {
+function GroupList({
+  variant = "transaction",
+  isLoading,
+  transactions,
+  handleTransactionClick,
+}: Props) {
   if (isLoading) {
     return <Loading />
   }
@@ -20,6 +26,7 @@ function GroupList({ isLoading, transactions, handleTransactionClick }: Props) {
   return transactions.map((transaction) => (
     <TransactionExcerpt
       {...transaction}
+      variant={variant}
       key={transaction.id + transaction.timestamp}
       handleTransactionClick={handleTransactionClick}
     />

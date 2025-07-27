@@ -41,12 +41,10 @@ export function ConnectedAccount() {
           ) : (
             <span
               className={
-                pendingApprovals && pendingApprovals > 0
-                  ? "text-primary"
-                  : "text-white"
+                pendingApprovals?.length ? "text-primary" : "text-white"
               }
             >
-              {pendingApprovals}
+              {pendingApprovals?.length}
             </span>
           )
         }

@@ -4,3 +4,4 @@ export type {
   TransactionStatus,
   TransactionStatusNonPending,
 } from "./transaction-status"
+export type { TransactionViewVariant } from "./transaction-view-variant"
