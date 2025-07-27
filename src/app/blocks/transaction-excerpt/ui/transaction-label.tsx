@@ -32,7 +32,7 @@ export function TransactionLabel({ status }: Props) {
     default:
       return (
         <div className="flex items-center text-info font-medium">
-          <AlertCircle className="w-4 h-4 mr-2" />
+          <AlertCircle className="w-4 h-4 mr-2 mt-[1px]" />
           <span>Active</span>
         </div>
       )

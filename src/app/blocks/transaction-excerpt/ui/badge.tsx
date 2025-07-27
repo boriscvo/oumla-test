@@ -5,7 +5,7 @@ type Props = {
 }
 
 function BadgeResolved({ isSelf }: Props) {
-  return isSelf ? <ArrowDownRight size="36" /> : <ArrowUpRight size="36" />
+  return isSelf ? <ArrowUpRight size="36" /> : <ArrowDownRight size="36" />
 }
 
 export function Badge({ isSelf }: Props) {

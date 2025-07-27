@@ -164,7 +164,13 @@ export function useApprovals() {
   useEffect(() => {
     if (allTransactionsData) {
       const reversedTransactions = [...allTransactionsData].reverse()
-      handleSetAllTransactions(reversedTransactions)
+      handleSetAllTransactions(
+        reversedTransactions.filter(
+          (transaction) =>
+            transaction.status === ActivityStatus.Pending &&
+            transaction.approvalId
+        )
+      )
     }
   }, [allTransactionsData])
 
