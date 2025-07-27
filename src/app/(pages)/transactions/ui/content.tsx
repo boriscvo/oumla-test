@@ -18,6 +18,7 @@ export function Content() {
     inputStateNonPending,
     stateOfPendingFiltering,
     stateOfNonPendingFiltering,
+    handleRefetchAllTransactions,
     handleSelectFilterNonPending,
     handleInputFilterPendingTransactions,
     handleInputFilterNonPendingTransactions,
@@ -57,6 +58,7 @@ export function Content() {
           isLoading={isLoading}
           transactions={nonPendingTransactions}
           handleTransactionClick={handleActiveTransactionOpen}
+          handleRefetchList={handleRefetchAllTransactions}
         />
       </div>
       <TransactionDetails
@@ -66,6 +68,7 @@ export function Content() {
       <NewTransaction
         isOpen={isNewTransactionOpen}
         handleClose={handleNewTransactionClose}
+        handleRefetch={handleRefetchAllTransactions}
       />
     </>
   )

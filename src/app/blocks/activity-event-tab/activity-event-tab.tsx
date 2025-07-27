@@ -1,4 +1,4 @@
-import { ActivityEvent } from "@/types/api"
+import { ActivityEvent } from "@/types/api/transaction"
 import {
   Badge,
   Container,

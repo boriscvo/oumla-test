@@ -9,18 +9,15 @@ export function Content() {
   useWalletConnector()
   const {
     isLoading,
-    filterOptions,
     userAddress,
     renderingTransactions,
     activeApproval,
     inputStatePending,
     stateOfFilters,
     isApprovalOpen,
-    activeFilter,
     mode,
     canApprove,
     approvalMutationStatus,
-    handleSelectFilter,
     handleInputFilter,
     handleApprovalOpen,
     handleApprovalClose,
@@ -30,12 +27,9 @@ export function Content() {
     <>
       <div>
         <FilterHeader<TransactionStatusWithAll>
-          hasSelect
+          hasSelect={false}
           inputValue={inputStatePending}
           filterState={stateOfFilters}
-          options={filterOptions}
-          selectValue={activeFilter}
-          handleSelectChange={handleSelectFilter}
           handleInputChange={handleInputFilter}
         />
         <TransactionGroup

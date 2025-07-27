@@ -1,6 +1,6 @@
 import { fetchRecentActivity } from "@/http/contract/fetch-recent-activity"
 import useGlobalStore from "@/store/use-global-store"
-import { ActivityEvent } from "@/types/api"
+import { ActivityEvent } from "@/types/api/transaction"
 import { useQuery } from "@tanstack/react-query"
 
 export function useActivityEventCard() {

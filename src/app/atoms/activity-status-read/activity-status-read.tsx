@@ -1,4 +1,4 @@
-import { ActivityStatus } from "@/types/api/recent-activity"
+import { ActivityStatus } from "@/types/api/transaction"
 import { ActivityStatusReadProps } from "./types"
 
 export function ActivityStatusRead({ label }: ActivityStatusReadProps) {

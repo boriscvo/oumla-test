@@ -1,4 +1,4 @@
-import { ActivityEvent } from "@/types/api"
+import { ActivityEvent } from "@/types/api/transaction"
 import { formatDistanceToNow } from "date-fns"
 
 export function TimeStamp({ timestamp }: Pick<ActivityEvent, "timestamp">) {

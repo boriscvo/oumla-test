@@ -1,24 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { Transaction } from "@/types/api/transaction"
+import { ActivityStatus, Transaction } from "@/types/api/transaction"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { fetchAllTransactions } from "@/http/contract/fetch-all-transactions"
 import useGlobalStore from "@/store/use-global-store"
-import { ActivityStatus } from "@/types/api/recent-activity"
 import { FilterStateVariant } from "@/app/blocks/filter-header/types"
-import { TransactionStatusWithAll } from "@/types/common/transaction-status"
 import { fetchApprovalCredentials } from "@/http/contract/fetch-approval-credentials"
 import { createApproval } from "@/http/contract/create-approval"
 
 export function useApprovals() {
   const userAddress = useGlobalStore((state) => state.userAddress)
-
-  const filterOptions = [
-    "all",
-    "active",
-    "completed",
-    "rejected",
-    "pending",
-  ] as TransactionStatusWithAll[]
 
   const [isApprovalOpen, setIsApprovalOpen] = useState(false)
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([])
@@ -26,8 +16,6 @@ export function useApprovals() {
     Transaction[]
   >([])
   const [activeApproval, setActiveApproval] = useState<Transaction | null>(null)
-  const [activeFilter, setActiveFilter] =
-    useState<TransactionStatusWithAll>("all")
   const [mode, setMode] = useState<"approve" | "reject" | null>(null)
 
   const { data: userApprovalStatus } = useQuery({
@@ -49,6 +37,10 @@ export function useApprovals() {
         approve: mode === "approve",
         reason: "Approved by user in UI",
       }),
+    onSuccess: () => {
+      resetFilters()
+      refetchAll()
+    },
   })
 
   const handleApprovalOpen = useCallback(
@@ -80,9 +72,12 @@ export function useApprovals() {
     },
     [approvalMutate]
   )
-
-  const { data: allTransactionsData, isLoading } = useQuery({
-    queryKey: ["transactions", userAddress],
+  const {
+    data: allTransactionsData,
+    isLoading,
+    refetch: refetchAll,
+  } = useQuery({
+    queryKey: ["transactions-approvals", userAddress],
     queryFn: () => fetchAllTransactions(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -109,57 +104,16 @@ export function useApprovals() {
     )
   }
 
-  const handleSelectFilter = useCallback(
-    (activeFilter: TransactionStatusWithAll) => {
-      switch (activeFilter) {
-        case "active":
-          setActiveFilter("active")
-          setRenderingTransactions(
-            allTransactions.filter(
-              (transaction) => transaction.status === ActivityStatus.Active
-            )
-          )
-          return
-        case "completed":
-          setActiveFilter("completed")
-          setRenderingTransactions(
-            allTransactions.filter(
-              (transaction) => transaction.status === ActivityStatus.Completed
-            )
-          )
-          return
-        case "rejected":
-          setActiveFilter("rejected")
-          setRenderingTransactions(
-            allTransactions.filter(
-              (transaction) => transaction.status === ActivityStatus.Rejected
-            )
-          )
-          return
-        case "pending":
-          setActiveFilter("pending")
-          setRenderingTransactions(
-            allTransactions.filter(
-              (transaction) => transaction.status === ActivityStatus.Pending
-            )
-          )
-          return
-        case "all":
-        default:
-          setActiveFilter("all")
-          setRenderingTransactions(allTransactions)
-          return
-      }
-    },
-    [allTransactions]
-  )
-
   const stateOfFilters: FilterStateVariant = useMemo(() => {
     if (inputStatePending && inputStatePending.length > 0) {
       return "pending-and-text"
     }
     return "pending"
   }, [inputStatePending])
+
+  const resetFilters = () => {
+    setInputStatePending("")
+  }
 
   useEffect(() => {
     if (allTransactionsData) {
@@ -176,19 +130,16 @@ export function useApprovals() {
 
   return {
     isLoading,
-    filterOptions,
     userAddress,
     renderingTransactions,
     activeApproval,
     inputStatePending,
     stateOfFilters,
     isApprovalOpen,
-    activeFilter,
     mode,
     userApprovalStatus,
     canApprove: userApprovalStatus?.canApprove || false,
     approvalMutationStatus,
-    handleSelectFilter,
     handleInputFilter,
     handleApprovalOpen,
     handleApprovalClose,

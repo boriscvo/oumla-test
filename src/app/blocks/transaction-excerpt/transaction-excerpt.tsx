@@ -19,6 +19,7 @@ import { TransactionViewVariant } from "@/types/common"
 type Props = Transaction & {
   variant?: TransactionViewVariant
   handleTransactionClick: (id: number, mode?: "approve" | "reject") => void
+  handleRefetchList?: () => void
 }
 
 export function TransactionExcerpt({
@@ -31,6 +32,7 @@ export function TransactionExcerpt({
   from,
   approvalId,
   handleTransactionClick,
+  handleRefetchList,
 }: Props) {
   const userAddress = useGlobalStore((state) => state.userAddress)
   const isSelf = userAddress?.toLowerCase() === from.toLowerCase()
@@ -51,6 +53,7 @@ export function TransactionExcerpt({
             approvalId={approvalId}
             status={status}
             handleActionClick={handleTransactionClick}
+            handleRefetchList={handleRefetchList}
           />
         </SecondaryProps>
       </InfoSection>

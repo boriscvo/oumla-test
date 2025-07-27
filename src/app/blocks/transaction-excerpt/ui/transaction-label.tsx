@@ -1,4 +1,4 @@
-import { ActivityStatus } from "@/types/api/recent-activity"
+import { ActivityStatus } from "@/types/api/transaction"
 import { CheckCircle, XCircle, Clock, AlertCircle } from "lucide-react"
 
 type Props = {

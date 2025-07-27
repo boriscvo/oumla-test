@@ -1,7 +1,8 @@
 import { createApprovalRequest } from "@/http/contract/create-approval-request"
+import { createCompleteRequest } from "@/http/contract/create-complete-request"
 import { fetchUserDetails } from "@/http/contract/fetch-user-details"
 import useGlobalStore from "@/store/use-global-store"
-import { ActivityStatus } from "@/types/api/recent-activity"
+import { ActivityStatus } from "@/types/api/transaction"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useMemo } from "react"
 
@@ -33,14 +34,27 @@ export function useAction(
 
   const {
     mutate: requestApprovalMutate,
-    reset,
+    reset: requestApprovalReset,
     status: requestApprovalStatus,
   } = useMutation({
     mutationFn: () => createApprovalRequest(id),
     onError: () => {
       setTimeout(() => {
-        reset()
-      }, 1000)
+        requestApprovalReset()
+      }, 2000)
+    },
+  })
+
+  const {
+    mutate: requestCompleteMutate,
+    reset: requestCompleteReset,
+    status: requestCompleteStatus,
+  } = useMutation({
+    mutationFn: () => createCompleteRequest(id),
+    onError: () => {
+      setTimeout(() => {
+        requestCompleteReset()
+      }, 2000)
     },
   })
 
@@ -48,15 +62,16 @@ export function useAction(
     requestApprovalMutate()
   }
 
-  const handleResetApproval = () => {
-    reset()
+  const handleRequestComplete = () => {
+    requestCompleteMutate()
   }
 
   return {
     role: userData?.role,
     approvalConditions,
     requestApprovalStatus,
+    requestCompleteStatus,
     handleRequestApproval,
-    handleResetApproval,
+    handleRequestComplete,
   }
 }

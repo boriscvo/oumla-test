@@ -5,7 +5,12 @@ import { useMutation } from "@tanstack/react-query"
 import { createNewTransaction } from "@/http/contract/create-new-transaction"
 import { TransactionPlacedOutcome } from "../types"
 
-export function useNewTransaction(handleClose: () => void) {
+type Args = {
+  handleClose: () => void
+  handleRefetch: () => void
+}
+
+export function useNewTransaction({ handleClose, handleRefetch }: Args) {
   const userAddress = useGlobalStore((state) => state.userAddress)
   const [outcome, setOutcome] = useState<TransactionPlacedOutcome | null>(null)
   const schema = z.object({
@@ -44,6 +49,7 @@ export function useNewTransaction(handleClose: () => void) {
       mutationFn: async (data: FormData) => createNewTransaction(data),
       onSuccess: (data) => {
         setOutcome(data.isSuccess ? "placed" : "failed")
+        handleRefetch()
       },
       onError: () => {
         setOutcome("failed")

@@ -14,9 +14,10 @@ import { TransactionButton } from "./transaction-button"
 type Props = {
   isOpen: boolean
   handleClose: () => void
+  handleRefetch: () => void
 }
 
-export function NewTransaction({ isOpen, handleClose }: Props) {
+export function NewTransaction({ isOpen, handleClose, handleRefetch }: Props) {
   const {
     userAddress,
     to,
@@ -31,7 +32,7 @@ export function NewTransaction({ isOpen, handleClose }: Props) {
     handleDescriptionUpdate,
     handleSubmit,
     handleDialogClose,
-  } = useNewTransaction(handleClose)
+  } = useNewTransaction({ handleClose, handleRefetch })
   return (
     <Dialog open={isOpen} onOpenChange={handleDialogClose}>
       <DialogContent aria-describedby={undefined}>

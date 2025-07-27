@@ -16,7 +16,7 @@ export function TransactionButton({
     return (
       <Button
         size="lg"
-        className="w-full mt-4 cursor-pointer"
+        className="w-full mt-4 cursor-pointer items-center text-base tracking-wide"
         onClick={handleClose}
       >
         <X className="mt-0.5" /> Close

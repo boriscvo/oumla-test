@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { fetchAllTransactions } from "@/http/contract/fetch-all-transactions"
 import useGlobalStore from "@/store/use-global-store"
-import { ActivityStatus } from "@/types/api/recent-activity"
+import { ActivityStatus } from "@/types/api/transaction"
 import { TransactionStatusNonPending } from "@/types/common"
 import { FilterStateVariant } from "@/app/blocks/filter-header/types"
 
@@ -57,7 +57,11 @@ export function useTransactions() {
     setIsNewTransactionOpen(false)
   }
 
-  const { data: allTransactionsData, isLoading } = useQuery({
+  const {
+    data: allTransactionsData,
+    isLoading,
+    refetch: refetchAllTransactions,
+  } = useQuery({
     queryKey: ["transactions", userAddress],
     queryFn: () => fetchAllTransactions(),
     refetchOnWindowFocus: false,
@@ -77,7 +81,7 @@ export function useTransactions() {
     const nonPending = transactions.filter(
       (transaction) => transaction.status !== ActivityStatus.Pending
     )
-    setFullNonPendingTransactions(nonPending.slice(-10))
+    setFullNonPendingTransactions(nonPending)
     setNonPendingTransactions(nonPending.slice(-20))
   }
 
@@ -143,6 +147,10 @@ export function useTransactions() {
     )
   }
 
+  const handleRefetchAllTransactions = () => {
+    refetchAllTransactions()
+  }
+
   const stateOfPendingFiltering: FilterStateVariant = useMemo(() => {
     if (inputStatePending && inputStatePending.length > 0) {
       return "pending-and-text"
@@ -163,11 +171,18 @@ export function useTransactions() {
     return "all"
   }, [filterStateNonPending, inputStateNonPending])
 
+  const resetFilters = () => {
+    setInputStatePending("")
+    setInputStateNonPending("")
+    setFilterStateNonPending("all")
+  }
+
   useEffect(() => {
     if (allTransactionsData) {
       const reversedTransactions = [...allTransactionsData].reverse()
       handleSetAllPending(reversedTransactions)
       handleSetAllNonPending(reversedTransactions)
+      resetFilters()
     }
   }, [allTransactionsData])
 
@@ -183,6 +198,7 @@ export function useTransactions() {
     inputStateNonPending,
     stateOfPendingFiltering,
     stateOfNonPendingFiltering,
+    handleRefetchAllTransactions,
     handleSelectFilterNonPending,
     handleInputFilterPendingTransactions,
     handleInputFilterNonPendingTransactions,

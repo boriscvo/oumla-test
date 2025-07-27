@@ -7,6 +7,7 @@ type Props = {
   isLoading?: boolean
   transactions: Transaction[]
   handleTransactionClick: (id: number, mode?: "approve" | "reject") => void
+  handleRefetchList?: () => void
 }
 
 function GroupList({
@@ -14,6 +15,7 @@ function GroupList({
   isLoading,
   transactions,
   handleTransactionClick,
+  handleRefetchList,
 }: Props) {
   if (isLoading) {
     return <Loading />
@@ -29,6 +31,7 @@ function GroupList({
       variant={variant}
       key={transaction.id + transaction.timestamp}
       handleTransactionClick={handleTransactionClick}
+      handleRefetchList={handleRefetchList}
     />
   ))
 }

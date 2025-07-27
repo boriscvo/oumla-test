@@ -1,5 +1,4 @@
-import { ActivityEvent } from "@/types/api"
-import { ActivityStatus } from "@/types/api/recent-activity"
+import { ActivityEvent, ActivityStatus } from "@/types/api/transaction"
 import { Clock, Loader, CheckCircle2, XCircle } from "lucide-react"
 
 function BadgeResolved({ type }: Pick<ActivityEvent, "type">) {

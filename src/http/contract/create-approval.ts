@@ -1,7 +1,4 @@
-import { CONTRACT_ABI } from "@/const/contract-abi"
-import { ethers } from "ethers"
-
-const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS!
+import { resolveContractAndSigner } from "@/utils/resolve-contract-and-signer"
 
 export async function createApproval({
   approvalId,
@@ -16,9 +13,7 @@ export async function createApproval({
     throw new Error("MetaMask not connected")
   }
   try {
-    const provider = new ethers.BrowserProvider(window.ethereum)
-    const signer = await provider.getSigner()
-    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer)
+    const { contract } = await resolveContractAndSigner()
     const tx = await contract.processApproval(approvalId, approve, reason)
     await tx.wait()
     return tx.hash

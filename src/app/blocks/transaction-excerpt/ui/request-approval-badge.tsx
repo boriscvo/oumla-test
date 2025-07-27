@@ -2,12 +2,11 @@ import { BadgeCheck, Check, Loader2, X } from "lucide-react"
 
 type Props = {
   status: "error" | "idle" | "pending" | "success"
-  siApprovalRequested?: boolean
 }
 
 export function RequestApprovalBadge({ status }: Props) {
   if (status === "pending") {
-    return <Loader2 className="h-4 w-4 mt-[3px] animate-spin" />
+    return <Loader2 className="h-4 w-4 mt-[3px] animate-spin text-primary" />
   }
 
   if (status === "success") {
@@ -18,5 +17,5 @@ export function RequestApprovalBadge({ status }: Props) {
     return <X className="h-4 w-4 mt-[0.5] text-negative" />
   }
 
-  return <BadgeCheck className="h-4 w-4 mt-0.5" />
+  return <BadgeCheck className="h-4 w-4 mt-0.5 text-primary" />
 }
