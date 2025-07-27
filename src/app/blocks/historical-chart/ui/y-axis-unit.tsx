@@ -10,7 +10,7 @@ export function YaxisUnit({ point, style }: Props) {
         style || ""
       }`}
     >
-      {point.toFixed(2)}
+      {point.toFixed(2)} ETH
     </div>
   )
 }

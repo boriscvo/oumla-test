@@ -10,6 +10,8 @@ export function useHistoricalChartCard() {
     queryFn: () => fetchChartData(),
   })
 
+  console.log(data)
+
   const historicalPoints = data?.map((point) => ({
     x: point.date * 1000,
     y: point.total,
