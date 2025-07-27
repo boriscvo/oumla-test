@@ -7,21 +7,22 @@ export async function fetchChartData() {
   const filtered = allTx
     .filter((tx) => tx.status !== 0)
     .sort((a, b) => b.timestamp - a.timestamp)
-    .slice(0, 300) // Limit to last 300
+    .slice(0, 100)
 
   const dateMap = new Map<number, number>()
 
   for (const tx of filtered) {
-    const hourStart = new Date(
-      new Date(tx.timestamp * 1000).setUTCMinutes(0, 0, 0)
+    const dayStart = new Date(
+      new Date(tx.timestamp * 1000).setUTCHours(0, 0, 0, 0)
     ).getTime()
     const amount = parseFloat(tx.amount)
 
-    dateMap.set(hourStart, (dateMap.get(hourStart) || 0) + amount)
+    dateMap.set(dayStart, (dateMap.get(dayStart) || 0) + amount)
   }
 
-  return Array.from(dateMap.entries()).map(([date, total]) => ({
+  const data = Array.from(dateMap.entries()).map(([date, total]) => ({
     date: date / 1000,
     total: total < 0.00001 ? 0 : parseFloat(formatEther(total.toString())),
   }))
+  return [...data].reverse()
 }

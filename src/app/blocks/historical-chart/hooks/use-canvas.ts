@@ -1,62 +1,82 @@
 import { ChartPoint, NormalizedPoint } from "@/types/common"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 
 const FACTOR_FOR_CHART_HEIGHT = 6
 
 type Args = {
-    width: number
-    height: number
-    data: ChartPoint[]
-  }
+  width: number
+  height: number
+  data: ChartPoint[]
+}
 
 export function useCanvas({ width, height, data }: Args) {
+  const [date, setDate] = useState<number | null>(null)
+  const [amount, setAmount] = useState<number | null>(null)
 
-    const Y0 = 2 * FACTOR_FOR_CHART_HEIGHT
-    const Y1 = height
-    const minValue = useMemo(
-      () => Math.min(...data.map((point) => +point.y)),
-      [data]
-    )
-    const maxValue = useMemo(
-      () => Math.max(...data.map((point) => +point.y)),
-      [data]
-    )
-    const step = useMemo(() => width / (data.length - 1), [width, data])
+  const handleUpdateTooltip = ({
+    date,
+    amount,
+  }: {
+    date: number
+    amount: number
+  }) => {
+    setDate(date)
+    setAmount(amount)
+  }
+  const handleResetTooltip = () => {
+    setDate(null)
+    setAmount(null)
+  }
 
-    const normalizedPoints: NormalizedPoint[] = useMemo(
-        () =>
-          data.map((point, i) => {
-            const value = +point.y
-            const xStep = i * step
-            const yStep =
-              Y1 -
-              (Y0 + ((value - minValue) * (Y1 - Y0)) / (maxValue - minValue)) +
-              FACTOR_FOR_CHART_HEIGHT
-            return {
-              point: [xStep, yStep],
-              relative: xStep / width,
-              time: String(point.x)
-            }
-          }),
-        [Y0, Y1, data, maxValue, minValue, step, width]
-      )
+  const Y0 = 2 * FACTOR_FOR_CHART_HEIGHT
+  const Y1 = height
+  const minValue = useMemo(
+    () => Math.min(...data.map((point) => +point.y)),
+    [data]
+  )
+  const maxValue = useMemo(
+    () => Math.max(...data.map((point) => +point.y)),
+    [data]
+  )
+  const step = useMemo(() => width / (data.length - 1), [width, data])
 
-      const fullPath = useMemo(() => {
-        const points = normalizedPoints.map((dot) => dot.point)
-        const closingPoints = [
-          [width + 1, points[points.length - 1][1]],
-          [width + 1, Y0 - 3 * FACTOR_FOR_CHART_HEIGHT],
-          [-3 * FACTOR_FOR_CHART_HEIGHT, -3 * FACTOR_FOR_CHART_HEIGHT],
-        ]
-        return [
-          [-3 * FACTOR_FOR_CHART_HEIGHT, points[0][1]],
-          ...points,
-          ...closingPoints,
-        ]
-      }, [Y0, width, normalizedPoints])
-    
-    return {
-      fullPath, 
-      normalizedPoints    
-    }
+  const normalizedPoints: NormalizedPoint[] = useMemo(
+    () =>
+      data.map((point, i) => {
+        const value = +point.y
+        const xStep = i * step
+        const yStep =
+          Y1 -
+          (Y0 + ((value - minValue) * (Y1 - Y0)) / (maxValue - minValue)) +
+          FACTOR_FOR_CHART_HEIGHT
+        return {
+          point: [xStep, yStep],
+          relative: xStep / width,
+          time: String(point.x),
+        }
+      }),
+    [Y0, Y1, data, maxValue, minValue, step, width]
+  )
+
+  const fullPath = useMemo(() => {
+    const points = normalizedPoints.map((dot) => dot.point)
+    const closingPoints = [
+      [width + 1, points[points.length - 1][1]],
+      [width + 1, Y0 - 3 * FACTOR_FOR_CHART_HEIGHT],
+      [-3 * FACTOR_FOR_CHART_HEIGHT, -3 * FACTOR_FOR_CHART_HEIGHT],
+    ]
+    return [
+      [-3 * FACTOR_FOR_CHART_HEIGHT, points[0][1]],
+      ...points,
+      ...closingPoints,
+    ]
+  }, [Y0, width, normalizedPoints])
+
+  return {
+    date,
+    amount,
+    fullPath,
+    handleUpdateTooltip,
+    handleResetTooltip,
+  }
 }

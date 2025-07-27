@@ -20,7 +20,7 @@ export function HistoricalChart({ points, isLoading }: ChartProps) {
       <>
         <Container height={canvasHeight}>
           {!isLoading && (
-            <div className="absolute text-lg top-0 left-0">
+            <div className="absolute text-lg max-md:-top-4 top-0 left-0">
               Not enough data to display the timeseries.
             </div>
           )}
