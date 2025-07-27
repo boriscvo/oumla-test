@@ -4,6 +4,8 @@ type Props = {
 
 export function Container({ children }: Props) {
   return (
-    <span className="flex py-3 opacity-0 animate-page-card">{children}</span>
+    <div className="relative flex py-6 md:py-3 opacity-0 animate-page-card">
+      {children}
+    </div>
   )
 }

@@ -18,7 +18,7 @@ export function TransactionSelect<T extends string = string>({
 }: Props<T>) {
   return (
     <Select onValueChange={(value: T) => onChange(value)} value={value}>
-      <SelectTrigger className="w-[14.5rem] text-lg py-5 border border-white overflow-clip">
+      <SelectTrigger className="w-full md:w-[14.5rem] text-lg py-5 border border-white overflow-clip">
         <span className="ml-2">Selected: {value}</span>
       </SelectTrigger>
       <SelectContent>

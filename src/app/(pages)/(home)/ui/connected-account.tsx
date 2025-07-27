@@ -1,14 +1,18 @@
 "use client"
-import { LabelValueRow, LoadingSkeleton } from "@/app/atoms"
+import { LabelValueRow, LoadingSkeleton, WalletAddress } from "@/app/atoms"
 import { useTotalTransactions, useUserDetails } from "../hooks"
 import { usePendingApproval } from "../hooks/use-pending-approvals"
 
 const Container = ({ children }: { children: React.ReactNode }) => {
-  return <div className="w-[40%] flex flex-col space-y-2">{children}</div>
+  return (
+    <div className="w-full md:w-[40%] max-md:w-full max-md:mt-8 flex flex-col space-y-2">
+      {children}
+    </div>
+  )
 }
 
 export function ConnectedAccount() {
-  const { role, formattedAddress, isUserDetailsLoading } = useUserDetails()
+  const { role, userAddress, isUserDetailsLoading } = useUserDetails()
   const { totalTransactions, isTotalTransactionsLoading } =
     useTotalTransactions()
   const { pendingApprovals, isPendingApprovalsLoading } = usePendingApproval()
@@ -16,7 +20,10 @@ export function ConnectedAccount() {
   return (
     <Container>
       <p className="font-semibold text-lg">Wallet Connected!</p>
-      <LabelValueRow label="Address" value={formattedAddress} />
+      <LabelValueRow
+        label="Address"
+        value={<WalletAddress address={userAddress} />}
+      />
       <LabelValueRow
         label="Role"
         value={

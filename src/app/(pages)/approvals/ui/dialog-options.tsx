@@ -32,7 +32,9 @@ export function DialogOptions({
         <div>
           <Loader2 className="h-12 w-12 my-6 mx-auto animate-spin text-muted-foreground" />
         </div>
-        <span className="text-muted text-xl mb-2">Processing...</span>
+        <span className="text-muted text-lg md:text-xl mb-2">
+          Processing...
+        </span>
       </div>
     )
   }
@@ -43,7 +45,7 @@ export function DialogOptions({
         <div>
           <Check className="h-12 w-12 my-6 mx-auto text-positive" />
         </div>
-        <span className="text-white text-xl mb-2">
+        <span className="text-white text-lg md:text-xl mb-2">
           Request completed successfully!
         </span>
       </div>
@@ -56,7 +58,7 @@ export function DialogOptions({
         <div>
           <X className="h-12 w-12 my-6 mx-auto text-negative" />
         </div>
-        <span className="text-white text-xl mb-2">
+        <span className="text-white text-lg md:text-xl mb-2">
           An error occurred during request.
         </span>
       </div>

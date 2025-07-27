@@ -19,7 +19,7 @@ export function ApprovalCondition({
       <>
         <Stop />
         <Button
-          className="px-0! underline cursor-pointer text-base"
+          className="px-0! w-fit underline cursor-pointer text-base"
           variant="link"
           disabled={requestApprovalStatus === "success"}
           onClick={handleRequestApproval}

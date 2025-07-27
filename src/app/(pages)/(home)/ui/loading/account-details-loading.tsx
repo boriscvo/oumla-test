@@ -1,7 +1,11 @@
 import { LoadingSkeleton } from "@/app/atoms"
 
 const Container = ({ children }: { children: React.ReactNode }) => {
-  return <div className="w-[40%] pt-1 flex flex-col space-y-4">{children}</div>
+  return (
+    <div className="w-full md:w-[40%] mt-8 pt-1 flex flex-col space-y-4">
+      {children}
+    </div>
+  )
 }
 
 export function AccountDetailsLoading() {

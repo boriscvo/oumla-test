@@ -2,6 +2,7 @@
 import { Input } from "@/components/ui/input"
 import { LabelValueRow } from "@/app/atoms"
 import { Textarea } from "@/components/ui/textarea"
+import { FormattedAddress } from "@/app/blocks"
 import { TransactionError } from "./transaction.error"
 
 type Props = {
@@ -28,7 +29,11 @@ export function NewTransactionForm({
 }: Props) {
   return (
     <>
-      <LabelValueRow isColumn label="From" value={userAddress} />
+      <LabelValueRow
+        isColumn
+        label="From"
+        value={<FormattedAddress address={userAddress} />}
+      />
       <LabelValueRow
         isColumn
         label="To"

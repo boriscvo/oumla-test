@@ -10,7 +10,7 @@ type Props = {
 function NavItem({ children, isActive }: Props) {
   return (
     <span
-      className={`text-lg font-semibold px-4 cursor-pointer hover:text-muted transition-colors duration-200 ${
+      className={`text-lg font-semibold px-3 md:px-4 cursor-pointer hover:text-muted transition-colors duration-200 ${
         isActive ? "text-primary pointer-events-none" : ""
       }`}
     >

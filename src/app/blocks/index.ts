@@ -6,3 +6,4 @@ export { TransactionExcerptLoading } from "./transaction-excerpt/transaction-exc
 export { FilterHeader } from "./filter-header/filter-header"
 export { TransactionGroup } from "./transaction-group/group"
 export { Navigation } from "./navigation/navigation"
+export { FormattedAddress } from "./formatted-address/formatted-address"

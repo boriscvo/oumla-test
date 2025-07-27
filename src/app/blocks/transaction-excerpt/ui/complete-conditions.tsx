@@ -19,7 +19,7 @@ export function CompleteConditions({
   return (
     <>
       <Button
-        className={`px-0! mr-2 underline cursor-pointer text-base`}
+        className={`px-0! w-fit mr-2 underline cursor-pointer text-base`}
         disabled={status === "success"}
         variant="link"
         onClick={handleRequestComplete}
@@ -29,7 +29,7 @@ export function CompleteConditions({
       </Button>
       {status === "success" && (
         <Button
-          className={`px-0! mr-2 underline cursor-pointer text-base opacity-0 animate-link-opacity`}
+          className={`px-0! w-fit mr-2 underline cursor-pointer text-base opacity-0 animate-link-opacity`}
           variant="link"
           onClick={handleRefetchWithIcon}
         >

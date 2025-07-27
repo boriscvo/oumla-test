@@ -1,20 +1,23 @@
 import { Transaction } from "@/types/api/transaction"
+import { WalletAddress } from "../wallet-address/wallet-address"
 
 type Props = Pick<Transaction, "to" | "from"> & { isSelf: boolean }
 
-export function FromOrTo({ to, from, isSelf }: Props) {
-  if (isSelf) {
-    return (
-      <div className="flex text-lg">
-        <span className="">To:</span>
-        <span className="ml-2">{to}</span>
-      </div>
-    )
-  }
+function FromOrToResolver({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex text-lg">
-      <span className="">From:</span>
-      <span className="ml-2">{from}</span>
+    <div className="flex md:text-lg">
+      <span className="">{label}:</span>
+      <span className="ml-2 max-md:hidden">{value}</span>
+      <div className="md:hidden ml-2">
+        <WalletAddress address={value} />
+      </div>
     </div>
   )
+}
+
+export function FromOrTo({ to, from, isSelf }: Props) {
+  if (isSelf) {
+    return <FromOrToResolver label="To" value={to} />
+  }
+  return <FromOrToResolver label="From" value={from} />
 }

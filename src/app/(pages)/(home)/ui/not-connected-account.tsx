@@ -8,7 +8,11 @@ type Props = {
 }
 
 const Container = ({ children }: { children: React.ReactNode }) => {
-  return <div className="w-full md:w-[40%] flex flex-col">{children}</div>
+  return (
+    <div className="w-full md:w-[40%] max-md:w-full max-md:mt-8 flex flex-col">
+      {children}
+    </div>
+  )
 }
 
 const Description = ({ children }: { children: React.ReactNode }) => {

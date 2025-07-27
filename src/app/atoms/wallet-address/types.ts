@@ -1,3 +1,3 @@
 export type WalletAddressProps = {
-  address: string
+  address: string | null
 }

@@ -1,3 +1,5 @@
+import { FormattedAddress } from "@/app/blocks"
+
 type Props = {
   from?: string
   to?: string
@@ -6,11 +8,15 @@ type Props = {
 
 export function Info({ from, to, userAddress }: Props) {
   return (
-    <p className="mt-4 mb-1">
-      <span>{from === userAddress ? `To: ` : `From: `}</span>
-      <span className="text-primary font-semibold">
-        {from === userAddress ? to : from}
-      </span>
-    </p>
+    <div className="mt-4 mb-1 flex items-center">
+      <div className="mr-1">{from === userAddress ? `To: ` : `From: `}</div>
+      <div className="text-primary font-semibold">
+        {from === userAddress ? (
+          <FormattedAddress address={to} />
+        ) : (
+          <FormattedAddress address={from} />
+        )}
+      </div>
+    </div>
   )
 }

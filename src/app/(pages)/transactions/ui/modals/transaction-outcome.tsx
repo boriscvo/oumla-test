@@ -14,7 +14,7 @@ export function TransactionOutcome({ isSubmitInProgress, outcome }: Props) {
           <X className="h-20 w-20 my-10 mx-auto text-negative" />
         </div>
         <p className="mb-6 text-xl">Transaction failed.</p>
-        <p className="flex flex-col px-8 text-muted-foreground text-md">
+        <p className="flex flex-col px-4 md:px-8 text-muted-foreground text-md">
           <span>Please try again. If the issue persists,</span>
           <span>contact support for assistance.</span>
         </p>
@@ -29,7 +29,7 @@ export function TransactionOutcome({ isSubmitInProgress, outcome }: Props) {
           <Check className="h-20 w-20 my-10 mx-auto text-positive" />
         </div>
         <p className="mb-6 text-xl">Transaction successfully placed!</p>
-        <p className="px-8 text-muted-foreground text-md">
+        <p className="px-4 md:px-8 text-muted-foreground text-md">
           Transactions has been submitted, mined and is now in the process of
           approval.
         </p>
@@ -44,7 +44,7 @@ export function TransactionOutcome({ isSubmitInProgress, outcome }: Props) {
           <Loader2 className="h-20 w-20 my-10 mx-auto animate-spin text-muted-foreground" />
         </div>
         <p className="mb-6 text-xl">Submitting transaction...</p>
-        <p className="px-8 text-muted-foreground text-md">
+        <p className="px-4 md:px-8 text-muted-foreground text-md">
           This may take a few seconds, feel free to close this dialog and track
           the outcome in the transactions list.
         </p>

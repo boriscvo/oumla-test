@@ -28,6 +28,7 @@ export function useUserDetails() {
 
   return {
     formattedAddress,
+    userAddress,
     role: userData?.role,
     isUserDetailsLoading,
   }

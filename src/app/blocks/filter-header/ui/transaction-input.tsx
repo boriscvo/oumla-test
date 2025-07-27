@@ -10,7 +10,7 @@ type Props = {
 
 export function TransactionInput({ value, onChange }: Props) {
   return (
-    <div className="relative w-full max-w-[17rem]">
+    <div className="relative w-full md:max-w-[17rem]">
       <Input
         value={value}
         onChange={(e) => onChange(e.target.value)}

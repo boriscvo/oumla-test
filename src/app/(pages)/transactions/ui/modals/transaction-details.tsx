@@ -1,4 +1,5 @@
 import { ActivityStatusRead, LabelValueRow } from "@/app/atoms"
+import { FormattedAddress } from "@/app/blocks"
 import {
   Dialog,
   DialogContent,
@@ -21,8 +22,14 @@ export function TransactionDetails({ transaction, handleClose }: Props) {
           <DialogTitle>Transaction #{transaction?.id || "-"}</DialogTitle>
         </DialogHeader>
         <div className="space-y-3">
-          <LabelValueRow label="To" value={transaction?.to} />
-          <LabelValueRow label="From" value={transaction?.from} />
+          <LabelValueRow
+            label="To"
+            value={<FormattedAddress address={transaction?.to} />}
+          />
+          <LabelValueRow
+            label="From"
+            value={<FormattedAddress address={transaction?.from} />}
+          />
           <LabelValueRow
             label="Amount"
             value={

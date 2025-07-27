@@ -4,6 +4,7 @@ import { FilterState } from "./ui/filter-state"
 import { TransactionInput } from "./ui/transaction-input"
 import { TransactionSelect } from "./ui/transaction-select"
 import { FilterStateVariant } from "./types"
+import { Container, FilterLayout } from "./ui"
 
 type Props<T extends string = string> =
   | {
@@ -37,9 +38,9 @@ export function FilterHeader<T extends string = string>({
   handleNewTransactionOpen,
 }: Props<T>) {
   return (
-    <div className="w-full flex flex-col">
+    <Container>
       <FilterState filterState={filterState} />
-      <div className="flex gap-x-2">
+      <FilterLayout>
         {hasSelect && (
           <TransactionSelect<T>
             options={options}
@@ -50,13 +51,13 @@ export function FilterHeader<T extends string = string>({
         <TransactionInput value={inputValue} onChange={handleInputChange} />
         {handleNewTransactionOpen && (
           <Button
-            className="ml-auto cursor-pointer text-base h-10 tracking-wide"
+            className="md:ml-auto cursor-pointer text-base h-10 tracking-wide"
             onClick={handleNewTransactionOpen}
           >
             + New Transaction
           </Button>
         )}
-      </div>
-    </div>
+      </FilterLayout>
+    </Container>
   )
 }

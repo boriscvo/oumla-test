@@ -15,6 +15,12 @@ type Props = Pick<Transaction, "id" | "approvalId" | "status"> & {
   handleRefetchList?: () => void
 }
 
+const Container = ({ children }: { children: React.ReactNode }) => (
+  <div className="flex max-md:flex-col md:items-center max-md:mt-2">
+    {children}
+  </div>
+)
+
 export function Action({
   id,
   approvalId,
@@ -35,10 +41,10 @@ export function Action({
 
   if (status === ActivityStatus.Active && variant === "transaction") {
     return (
-      <>
+      <Container>
         <Stop />
         <Button
-          className="px-0! underline cursor-pointer text-base"
+          className="px-0! w-fit underline cursor-pointer text-base"
           variant="link"
           onClick={() => handleActionClick(id)}
         >
@@ -51,16 +57,16 @@ export function Action({
           handleRequestComplete={handleRequestComplete}
           handleRefetch={handleRefetchList}
         />
-      </>
+      </Container>
     )
   }
 
   if (variant === "transaction") {
     return (
-      <>
+      <Container>
         <Stop />
         <Button
-          className="px-0! underline cursor-pointer text-base"
+          className="px-0! w-fit underline cursor-pointer text-base"
           variant="link"
           onClick={() => handleActionClick(id)}
         >
@@ -72,15 +78,15 @@ export function Action({
           requestApprovalStatus={requestApprovalStatus}
           handleRequestApproval={handleRequestApproval}
         />
-      </>
+      </Container>
     )
   }
   if (role && approvalId) {
     return (
-      <>
+      <Container>
         <Stop />
         <Button
-          className="px-0! underline cursor-pointer text-positive text-md"
+          className="px-0! w-fit underline cursor-pointer text-positive text-md"
           variant="link"
           onClick={() => handleActionClick(id, "approve")}
         >
@@ -88,13 +94,13 @@ export function Action({
         </Button>
         <Stop />
         <Button
-          className="pl-0! underline cursor-pointer text-negative text-md"
+          className="pl-0! w-fit underline cursor-pointer text-negative text-md"
           variant="link"
           onClick={() => handleActionClick(id, "reject")}
         >
           Reject
         </Button>
-      </>
+      </Container>
     )
   }
 }
