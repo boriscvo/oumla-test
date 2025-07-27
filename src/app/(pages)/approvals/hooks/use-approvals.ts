@@ -77,11 +77,8 @@ export function useApprovals() {
     isLoading,
     refetch: refetchAll,
   } = useQuery({
-    queryKey: ["transactions-approvals", userAddress],
+    queryKey: ["transactions", userAddress],
     queryFn: () => fetchAllTransactions(),
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
   })
 
   const handleSetAllTransactions = (transactions: Transaction[]) => {

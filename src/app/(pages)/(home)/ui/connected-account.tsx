@@ -1,6 +1,6 @@
 "use client"
 import { LabelValueRow, LoadingSkeleton, WalletAddress } from "@/app/atoms"
-import { useTotalTransactions, useUserDetails } from "../hooks"
+import { useTotalTransactionsCount, useUserDetails } from "../hooks"
 import { usePendingApproval } from "../hooks/use-pending-approvals"
 
 const Container = ({ children }: { children: React.ReactNode }) => {
@@ -14,7 +14,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
 export function ConnectedAccount() {
   const { role, userAddress, isUserDetailsLoading } = useUserDetails()
   const { totalTransactions, isTotalTransactionsLoading } =
-    useTotalTransactions()
+    useTotalTransactionsCount()
   const { pendingApprovals, isPendingApprovalsLoading } = usePendingApproval()
 
   return (

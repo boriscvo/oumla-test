@@ -64,9 +64,6 @@ export function useTransactions() {
   } = useQuery({
     queryKey: ["transactions", userAddress],
     queryFn: () => fetchAllTransactions(),
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
   })
 
   const handleSetAllPending = (transactions: Transaction[]) => {

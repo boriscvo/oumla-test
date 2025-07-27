@@ -2,7 +2,7 @@ import { fetchTransactionCount } from "@/http/contract/fetch-transaction-count"
 import useGlobalStore from "@/store/use-global-store"
 import { useQuery } from "@tanstack/react-query"
 
-export function useTotalTransactions() {
+export function useTotalTransactionsCount() {
   const userAddress = useGlobalStore((state) => state.userAddress)
   const { data: totalTransactions, isLoading: isTotalTransactionsLoading } =
     useQuery({
