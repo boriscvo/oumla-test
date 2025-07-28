@@ -9,6 +9,12 @@ npm install
 npm run dev
 ```
 
+Also, contract address should be set in the `.env.local` file, as follows:
+
+```NEXT_PUBLIC_CONTRACT_ADDRESS=0xYourContractAddressHere
+
+```
+
 The app is running on [http://localhost:3000](http://localhost:3000).
 
 ## Stack
